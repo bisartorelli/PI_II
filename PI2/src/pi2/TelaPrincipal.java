@@ -30,13 +30,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnCliente = new javax.swing.JMenu();
-        cadastrarCliente = new javax.swing.JMenuItem();
-        gerenciarCliente = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         mnProduto = new javax.swing.JMenu();
-        cadastrarProduto = new javax.swing.JMenuItem();
-        gerenciarProduto = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         mnVenda = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
         mnRelatorio = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -53,28 +53,40 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         mnCliente.setText("Cliente");
 
-        cadastrarCliente.setText("Cadastrar");
-        mnCliente.add(cadastrarCliente);
-
-        gerenciarCliente.setText("Gerenciar");
-        mnCliente.add(gerenciarCliente);
+        jMenuItem1.setText("Gerenciar Clientes");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        mnCliente.add(jMenuItem1);
 
         jMenuBar1.add(mnCliente);
 
         mnProduto.setText("Produto");
 
-        cadastrarProduto.setText("Cadastrar");
-        mnProduto.add(cadastrarProduto);
-
-        gerenciarProduto.setText("Gerenciar");
-        mnProduto.add(gerenciarProduto);
+        jMenuItem2.setText("Gerenciar Produtos");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        mnProduto.add(jMenuItem2);
 
         jMenuBar1.add(mnProduto);
 
         mnVenda.setText("Venda");
+
+        jMenuItem3.setText("Efetuar Venda");
+        mnVenda.add(jMenuItem3);
+
         jMenuBar1.add(mnVenda);
 
         mnRelatorio.setText("Relatório");
+
+        jMenuItem4.setText("Relatórios de Venda");
+        mnRelatorio.add(jMenuItem4);
+
         jMenuBar1.add(mnRelatorio);
 
         setJMenuBar(jMenuBar1);
@@ -92,6 +104,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        Cliente cliente = new Cliente();
+        cliente.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -129,12 +151,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem cadastrarCliente;
-    private javax.swing.JMenuItem cadastrarProduto;
-    private javax.swing.JMenuItem gerenciarCliente;
-    private javax.swing.JMenuItem gerenciarProduto;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenu mnCliente;
     private javax.swing.JMenu mnProduto;
     private javax.swing.JMenu mnRelatorio;

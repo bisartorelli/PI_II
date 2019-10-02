@@ -60,7 +60,7 @@ public class Cliente extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nome", "CPF"
+                "Nome", "CPF", "Endereço"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -133,6 +133,7 @@ public class Cliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMenuMouseClicked
+       
         TelaPrincipal tela =  new TelaPrincipal();
         tela.setVisible(true);
         dispose();
