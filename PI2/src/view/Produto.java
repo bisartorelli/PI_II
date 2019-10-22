@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pi2;
+package view;
 
 /**
  *
@@ -48,7 +48,6 @@ public class Produto extends javax.swing.JFrame {
         btnPesquisar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(930, 450));
 
         painel.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados do Produto"));
 

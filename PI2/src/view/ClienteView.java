@@ -3,18 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pi2;
+package view;
 
-/**
- *
- * @author lucas.afsilva6
- */
-public class Cliente extends javax.swing.JFrame {
+
+import controler.ClienteController;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import model.Cliente;
+
+
+public class ClienteView extends javax.swing.JFrame {
 
     /**
      * Creates new form Cliente
      */
-    public Cliente() {
+    public ClienteView() {
         initComponents();
     }
 
@@ -27,6 +30,7 @@ public class Cliente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        grupoSexo = new javax.swing.ButtonGroup();
         lblMenu = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         txtNome = new javax.swing.JTextField();
@@ -50,7 +54,6 @@ public class Cliente extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(500, 500));
-        setPreferredSize(new java.awt.Dimension(517, 369));
 
         lblMenu.setText("MENU");
         lblMenu.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -67,13 +70,20 @@ public class Cliente extends javax.swing.JFrame {
 
         jLabel1.setText("Sexo:");
 
+        grupoSexo.add(jRadioButton1);
         jRadioButton1.setText("Masculino");
 
+        grupoSexo.add(jRadioButton2);
         jRadioButton2.setText("Feminino");
 
         jLabel3.setText("Telefone :");
 
         btnSalvar1.setText("Salvar");
+        btnSalvar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvar1ActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setText("Excluir");
 
@@ -156,9 +166,17 @@ public class Cliente extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nome", "CPF", "Endereço"
+                "Nome", "CPF", "Sexo", "Telefone"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(JTCliente);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -172,10 +190,9 @@ public class Cliente extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 4, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -219,8 +236,8 @@ public class Cliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMenuMouseClicked
-       
-        TelaPrincipal tela =  new TelaPrincipal();
+
+        TelaPrincipal tela = new TelaPrincipal();
         tela.setVisible(true);
         dispose();
     }//GEN-LAST:event_lblMenuMouseClicked
@@ -229,6 +246,53 @@ public class Cliente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAlterarActionPerformed
 
+    private void btnSalvar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvar1ActionPerformed
+
+        String nome = txtNome.getText();
+        String telefone = txtTelefone.getText();
+        int cpf = Integer.parseInt(txtCPF.getText());
+        String sexo= "";
+        if (jRadioButton1.isSelected()) {
+            sexo = jRadioButton1.getText();
+        } 
+        else if (jRadioButton2.isSelected()) 
+        {
+            sexo = jRadioButton2.getText();
+        }
+        
+        Cliente cliente = new Cliente();
+        cliente.setNome(nome);
+        cliente.setCpf(cpf);
+        cliente.setSexo(sexo);
+        cliente.setTelefone(telefone);
+        
+        
+        limparTabela();
+        List<Cliente> clientes = ClienteController.cadastarCliente(cliente);
+        
+        inserirDadosTabela(clientes);
+        
+
+
+    }//GEN-LAST:event_btnSalvar1ActionPerformed
+
+    private void inserirDadosTabela(List<Cliente> clientes){
+        
+        DefaultTableModel model = (DefaultTableModel) JTCliente.getModel();
+        for (Cliente cliente : clientes) {
+            model.addRow(new String[]{cliente.getNome(),String.valueOf(cliente.getCpf()),cliente.getSexo(),cliente.getTelefone()});
+        }
+    }
+     
+    private void limparTabela(){
+         DefaultTableModel model = (DefaultTableModel) JTCliente.getModel();
+     
+        for (int i = model.getRowCount() -1; i >= 0; i--) {
+            model.removeRow(i);
+           
+        }
+         
+     }
     /**
      * @param args the command line arguments
      */
@@ -246,20 +310,21 @@ public class Cliente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClienteView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClienteView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClienteView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClienteView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Cliente().setVisible(true);
+                new ClienteView().setVisible(true);
             }
         });
     }
@@ -270,6 +335,7 @@ public class Cliente extends javax.swing.JFrame {
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnSalvar1;
+    private javax.swing.ButtonGroup grupoSexo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;

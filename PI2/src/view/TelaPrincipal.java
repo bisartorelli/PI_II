@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pi2;
+package view;
+
+import view.ClienteView;
 
 /**
  *
@@ -106,7 +108,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        Cliente cliente = new Cliente();
+        ClienteView cliente = new ClienteView();
         cliente.setVisible(true);
         dispose();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
