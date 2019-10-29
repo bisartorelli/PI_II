@@ -70,7 +70,7 @@ public class Itens extends javax.swing.JInternalFrame {
 
         bntExcluir.setText("Excluir");
 
-        btnAdd.setText("Add");
+        btnAdd.setText("Salvar");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddActionPerformed(evt);
