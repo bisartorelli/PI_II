@@ -19,5 +19,11 @@ public class ClienteController {
         List<Cliente> clientes = ClienteDao.cadastarCliente(cliente);
         return clientes;
     }
-    
+
+    public static List<Cliente> remover(int id) {
+        List<Cliente> clientes = ClienteDao.removerCliente(id);
+        return clientes;
+    }
+
+   
 }

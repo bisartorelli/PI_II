@@ -86,6 +86,11 @@ public class ClienteView extends javax.swing.JFrame {
         });
 
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         btnAlterar.setText("Alterar");
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
@@ -158,6 +163,11 @@ public class ClienteView extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Pesquisa"));
 
         btnPesquisar.setText("Pesquisar");
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarActionPerformed(evt);
+            }
+        });
 
         lblCpfPesquisa.setText("CPF:");
 
@@ -246,6 +256,9 @@ public class ClienteView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAlterarActionPerformed
 
+    
+
+    
     private void btnSalvar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvar1ActionPerformed
 
         String nome = txtNome.getText();
@@ -276,6 +289,19 @@ public class ClienteView extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnSalvar1ActionPerformed
 
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        
+    }//GEN-LAST:event_btnPesquisarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        
+       int id =  JTCliente.getSelectedRow();
+        limparTabela();
+        List<Cliente> clientes = ClienteController.remover(id);
+        inserirDadosTabela(clientes);
+        
+    }//GEN-LAST:event_btnExcluirActionPerformed
+  
     private void inserirDadosTabela(List<Cliente> clientes){
         
         DefaultTableModel model = (DefaultTableModel) JTCliente.getModel();
@@ -283,6 +309,8 @@ public class ClienteView extends javax.swing.JFrame {
             model.addRow(new String[]{cliente.getNome(),String.valueOf(cliente.getCpf()),cliente.getSexo(),cliente.getTelefone()});
         }
     }
+    
+
      
     private void limparTabela(){
          DefaultTableModel model = (DefaultTableModel) JTCliente.getModel();
