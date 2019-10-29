@@ -237,7 +237,7 @@ public class ClienteView extends javax.swing.JFrame {
 
     private void lblMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMenuMouseClicked
 
-        TelaPrincipal tela = new TelaPrincipal();
+        MenuView tela = new MenuView();
         tela.setVisible(true);
         dispose();
     }//GEN-LAST:event_lblMenuMouseClicked

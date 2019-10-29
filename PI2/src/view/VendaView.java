@@ -9,12 +9,12 @@ package view;
  *
  * @author guilherme.apinheiro1
  */
-public class Itens extends javax.swing.JInternalFrame {
+public class VendaView extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form Itens
      */
-    public Itens() {
+    public VendaView() {
         initComponents();
     }
 
