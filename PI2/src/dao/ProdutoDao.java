@@ -1,18 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import model.Cliente;
 import model.Produto;
 
-/**
- *
- * @author bianca.osartorelli
- */
+
+ 
 public class ProdutoDao {
 
     public static List<Produto> cadastarProduto(Produto produto) {
@@ -24,6 +19,21 @@ public class ProdutoDao {
     
     private static List<Produto> bd = new ArrayList<>();
         
+    public static List<Produto> removerProduto(int id) {
+        bd.remove(id);
+        return bd;
+        
+    }
+
+    public static List<Produto> atualizar(int id, Produto produto ) {
+        bd.get(id).setProduto(produto.getProduto());
+        bd.get(id).setFabricante(produto.getFabricante());
+        bd.get(id).setCategoria(produto.getCategoria());
+        bd.get(id).setTamanho(produto.getTamanho());
+        bd.get(id).setEstoque(produto.getEstoque());
+        bd.get(id).setValor(produto.getValor());
+       return bd;
+    }
     }
     
 
