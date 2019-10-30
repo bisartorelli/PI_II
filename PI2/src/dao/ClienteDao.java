@@ -30,6 +30,10 @@ public class ClienteDao {
         bd.get(id).setTelefone(cliente.getTelefone());
        return bd;
     }
+
+    public static List<Cliente> listar() {
+        return bd;
+    }
     
     
 }

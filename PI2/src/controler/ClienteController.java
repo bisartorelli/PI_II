@@ -31,5 +31,10 @@ public class ClienteController {
         
     }
 
+    public List<Cliente> listar() {
+        List<Cliente> clientes = ClienteDao.listar();
+        return clientes;
+    }
+
    
 }
