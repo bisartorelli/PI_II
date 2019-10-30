@@ -24,6 +24,12 @@ public class ClienteController {
         List<Cliente> clientes = ClienteDao.removerCliente(id);
         return clientes;
     }
+     public static List<Cliente> atualizar(int id , Cliente cliente)
+    {
+        List<Cliente> clientes = ClienteDao.atualizar(id,cliente);
+        return clientes;
+        
+    }
 
    
 }

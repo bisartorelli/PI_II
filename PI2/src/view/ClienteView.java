@@ -5,12 +5,12 @@
  */
 package view;
 
-
 import controler.ClienteController;
 import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import model.Cliente;
-
 
 public class ClienteView extends javax.swing.JFrame {
 
@@ -19,6 +19,7 @@ public class ClienteView extends javax.swing.JFrame {
      */
     public ClienteView() {
         initComponents();
+
     }
 
     /**
@@ -51,6 +52,7 @@ public class ClienteView extends javax.swing.JFrame {
         lblCpfPesquisa = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         JTCliente = new javax.swing.JTable();
+        btnPreencher = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(500, 500));
@@ -189,6 +191,13 @@ public class ClienteView extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(JTCliente);
 
+        btnPreencher.setText("Preencher");
+        btnPreencher.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPreencherActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -200,7 +209,9 @@ public class ClienteView extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnPreencher))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 4, Short.MAX_VALUE))
         );
@@ -211,7 +222,8 @@ public class ClienteView extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCpfPesquisa)
-                    .addComponent(btnPesquisar))
+                    .addComponent(btnPesquisar)
+                    .addComponent(btnPreencher, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(18, Short.MAX_VALUE))
@@ -253,26 +265,18 @@ public class ClienteView extends javax.swing.JFrame {
     }//GEN-LAST:event_lblMenuMouseClicked
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAlterarActionPerformed
-
-    
-
-    
-    private void btnSalvar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvar1ActionPerformed
-
-        String nome = txtNome.getText();
+       int id = JTCliente.getSelectedRow();
+       
+       String nome = txtNome.getText();
         String telefone = txtTelefone.getText();
         int cpf = Integer.parseInt(txtCPF.getText());
-        String sexo= "";
+        String sexo = "";
         if (jRadioButton1.isSelected()) {
             sexo = jRadioButton1.getText();
-        } 
-        else if (jRadioButton2.isSelected()) 
-        {
+        } else if (jRadioButton2.isSelected()) {
             sexo = jRadioButton2.getText();
         }
-        
+
         Cliente cliente = new Cliente();
         cliente.setNome(nome);
         cliente.setCpf(cpf);
@@ -281,46 +285,97 @@ public class ClienteView extends javax.swing.JFrame {
         
         
         limparTabela();
-        List<Cliente> clientes = ClienteController.cadastarCliente(cliente);
-        
+        List<Cliente> clientes = ClienteController.atualizar(id,cliente);
+
         inserirDadosTabela(clientes);
-        
+       
+
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
+
+    private void btnSalvar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvar1ActionPerformed
+
+        String nome = txtNome.getText();
+        String telefone = txtTelefone.getText();
+        int cpf = Integer.parseInt(txtCPF.getText());
+        String sexo = "";
+        if (jRadioButton1.isSelected()) {
+            sexo = jRadioButton1.getText();
+        } else if (jRadioButton2.isSelected()) {
+            sexo = jRadioButton2.getText();
+        }
+
+        Cliente cliente = new Cliente();
+        cliente.setNome(nome);
+        cliente.setCpf(cpf);
+        cliente.setSexo(sexo);
+        cliente.setTelefone(telefone);
+
+        limparTabela();
+        List<Cliente> clientes = ClienteController.cadastarCliente(cliente);
+
+        inserirDadosTabela(clientes);
 
 
     }//GEN-LAST:event_btnSalvar1ActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        
+
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        
-       int id =  JTCliente.getSelectedRow();
+
+        int id = JTCliente.getSelectedRow();
         limparTabela();
         List<Cliente> clientes = ClienteController.remover(id);
         inserirDadosTabela(clientes);
-        
+
     }//GEN-LAST:event_btnExcluirActionPerformed
-  
-    private void inserirDadosTabela(List<Cliente> clientes){
-        
+
+    private void btnPreencherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreencherActionPerformed
+       
+
+        if (JTCliente.getRowCount() > 0) {
+           
+            if (JTCliente.getSelectedRow() >= 0) {
+
+                txtNome.setText(JTCliente.getModel().getValueAt(JTCliente.getSelectedRow(), 0).toString());
+                txtCPF.setText(JTCliente.getModel().getValueAt(JTCliente.getSelectedRow(), 1).toString());
+                if (jRadioButton1.isSelected()) {
+                jRadioButton1.setText(JTCliente.getModel().getValueAt(JTCliente.getSelectedRow(), 2).toString());
+                } else if (jRadioButton2.isSelected()) {
+                jRadioButton2.setText(JTCliente.getModel().getValueAt(JTCliente.getSelectedRow(), 2).toString());
+                }
+                txtTelefone.setText(JTCliente.getModel().getValueAt(JTCliente.getSelectedRow(), 3).toString());
+               
+            } else {
+                JOptionPane.showMessageDialog(this, "Selecione um produto para editar!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Não há produtos para editar!");
+        }
+
+
+    }//GEN-LAST:event_btnPreencherActionPerformed
+
+    private void inserirDadosTabela(List<Cliente> clientes) {
+
         DefaultTableModel model = (DefaultTableModel) JTCliente.getModel();
         for (Cliente cliente : clientes) {
-            model.addRow(new String[]{cliente.getNome(),String.valueOf(cliente.getCpf()),cliente.getSexo(),cliente.getTelefone()});
+            model.addRow(new String[]{cliente.getNome(), String.valueOf(cliente.getCpf()), cliente.getSexo(), cliente.getTelefone()});
         }
     }
-    
 
-     
-    private void limparTabela(){
-         DefaultTableModel model = (DefaultTableModel) JTCliente.getModel();
-     
-        for (int i = model.getRowCount() -1; i >= 0; i--) {
+    private void limparTabela() {
+        DefaultTableModel model = (DefaultTableModel) JTCliente.getModel();
+
+        for (int i = model.getRowCount() - 1; i >= 0; i--) {
             model.removeRow(i);
-           
+
         }
-         
-     }
+
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -362,6 +417,7 @@ public class ClienteView extends javax.swing.JFrame {
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnPesquisar;
+    private javax.swing.JButton btnPreencher;
     private javax.swing.JButton btnSalvar1;
     private javax.swing.ButtonGroup grupoSexo;
     private javax.swing.JLabel jLabel1;

@@ -26,6 +26,14 @@ public class ClienteDao {
         return bd;
         
     }
+
+    public static List<Cliente> atualizar(int id, Cliente cliente ) {
+        bd.get(id).setCpf(cliente.getCpf());
+        bd.get(id).setNome(cliente.getNome());
+        bd.get(id).setSexo(cliente.getSexo());
+        bd.get(id).setTelefone(cliente.getTelefone());
+       return bd;
+    }
     
     
 }
