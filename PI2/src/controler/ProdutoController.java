@@ -23,16 +23,25 @@ public class ProdutoController {
     }
 
   
-    public static List<Produto> remover(int id) {
-        List<Produto> produtos = ProdutoDao.removerProduto(id);
+    public static List<Produto> remover(int idProd) {
+        List<Produto> produtos = ProdutoDao.removerProduto(idProd);
         return produtos;
     }
-    public static List<Produto> atualizar(int id , Produto produto)
+    public static List<Produto> atualizar(int idProd , Produto produto)
     {
-        List<Produto> produtos = ProdutoDao.atualizar(id,produto);
+        List<Produto> produtos = ProdutoDao.atualizar(idProd,produto);
         return produtos;
         
     }
     
+     public List<Produto> listar() {
+        List<Produto> produtos = ProdutoDao.listar();
+        return produtos;
+    }
+
     
-}
+   
+    }
+    
+    
+

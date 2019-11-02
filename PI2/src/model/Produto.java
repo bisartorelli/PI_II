@@ -10,22 +10,29 @@ package model;
  * @author bianca.osartorelli
  */
 public class Produto {
-    
     private String produto;
+    private int codigo;
     private String fabricante;
     private String categoria;
     private String tamanho;
     private int estoque;
     private int valor;
-
+  
     
-
     public String getProduto() {
         return produto;
     }
 
     public void setProduto(String produto) {
         this.produto = produto;
+    }
+    
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
 
     public String getFabricante() {
@@ -67,5 +74,12 @@ public class Produto {
     public void setValor(int valor) {
         this.valor = valor;
     }
+
+
+    
+    
+ 
+   
+    
     
 }

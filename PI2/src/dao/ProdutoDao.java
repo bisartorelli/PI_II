@@ -3,7 +3,6 @@ package dao;
 
 import java.util.ArrayList;
 import java.util.List;
-import model.Cliente;
 import model.Produto;
 
 
@@ -12,7 +11,6 @@ public class ProdutoDao {
 
     public static List<Produto> cadastarProduto(Produto produto) {
                   
-       
         bd.add(produto);
         return bd;
     }
@@ -32,8 +30,15 @@ public class ProdutoDao {
         bd.get(id).setTamanho(produto.getTamanho());
         bd.get(id).setEstoque(produto.getEstoque());
         bd.get(id).setValor(produto.getValor());
+  
        return bd;
     }
+   
+    public static List<Produto> listar() {
+        return bd;
     }
+    
+    }
+    
     
 
