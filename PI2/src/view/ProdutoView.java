@@ -57,10 +57,10 @@ public class ProdutoView extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
-        btnSalvar1 = new javax.swing.JButton();
+        btnPesquisar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        txtProdutoPesquisa = new javax.swing.JTextField();
+        lblMenu = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -211,7 +211,12 @@ public class ProdutoView extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tabela);
 
-        btnSalvar1.setText("Pesquisar");
+        btnPesquisar.setText("Pesquisar");
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("Produto:");
 
@@ -225,9 +230,9 @@ public class ProdutoView extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField5)
+                        .addComponent(txtProdutoPesquisa)
                         .addGap(205, 205, 205)
-                        .addComponent(btnSalvar1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1)
@@ -239,14 +244,19 @@ public class ProdutoView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(btnSalvar1)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnPesquisar)
+                    .addComponent(txtProdutoPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        jLabel1.setText("MENU");
+        lblMenu.setText("MENU");
+        lblMenu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblMenuMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -262,14 +272,14 @@ public class ProdutoView extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+                .addComponent(lblMenu)
                 .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(8, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+                .addComponent(lblMenu)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(painel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -279,7 +289,7 @@ public class ProdutoView extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+      
     private void TamanhoProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TamanhoProdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TamanhoProdActionPerformed
@@ -307,7 +317,7 @@ public class ProdutoView extends javax.swing.JFrame {
         model.setValor(valor);
         
         
-        ProdutoController control = new ProdutoController();
+        
         
         
         limparTabela();
@@ -361,6 +371,32 @@ public class ProdutoView extends javax.swing.JFrame {
        
     }//GEN-LAST:event_btnEditarActionPerformed
 
+    private void lblMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMenuMouseClicked
+                                         
+
+        MenuView tela = new MenuView();
+        tela.setVisible(true);
+        dispose();
+     
+    }//GEN-LAST:event_lblMenuMouseClicked
+
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        
+        List<Produto> produtos = ProdutoController.listar();
+        limparTabela();
+        pesquisarPorCodigo(produtos);
+        
+        
+    }//GEN-LAST:event_btnPesquisarActionPerformed
+       private void pesquisarPorCodigo(List<Produto> produtos){
+        
+          DefaultTableModel model = (DefaultTableModel) tabela.getModel();
+        for (Produto produto : produtos) {
+            if(produto.getCodigo()== Integer.parseInt(txtProdutoPesquisa.getText()))
+            model.addRow(new String[]{String.valueOf(produto.getCodigo()),produto.getProduto(), produto.getFabricante(), produto.getCategoria(), produto.getTamanho(),String.valueOf(produto.getEstoque()), String.valueOf(produto.getValor())});
+        }
+        
+    }
     
     private void inserirDadosTabela(List<Produto> produtos) {
 
@@ -427,21 +463,21 @@ public class ProdutoView extends javax.swing.JFrame {
     private javax.swing.JLabel ValorLabel;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnSalvar;
-    private javax.swing.JButton btnSalvar1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JLabel lblMenu;
     private javax.swing.JPanel painel;
     private javax.swing.JTable tabela;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtEstoque;
     private javax.swing.JTextField txtFabricante;
     private javax.swing.JTextField txtProduto;
+    private javax.swing.JTextField txtProdutoPesquisa;
     private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
 

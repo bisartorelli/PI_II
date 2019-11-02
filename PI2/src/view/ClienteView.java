@@ -47,7 +47,7 @@ public class ClienteView extends javax.swing.JFrame {
         btnExcluir = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
+        txtPesquisaCpf = new javax.swing.JTextField();
         btnPesquisar = new javax.swing.JButton();
         lblCpfPesquisa = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -207,7 +207,7 @@ public class ClienteView extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(lblCpfPesquisa)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtPesquisaCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -220,7 +220,7 @@ public class ClienteView extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPesquisaCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCpfPesquisa)
                     .addComponent(btnPesquisar)
                     .addComponent(btnPreencher, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -249,7 +249,7 @@ public class ClienteView extends javax.swing.JFrame {
                 .addComponent(lblMenu)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(44, 44, 44)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -320,7 +320,13 @@ public class ClienteView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalvar1ActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-
+        
+        
+        
+        List<Cliente> clientes = ClienteController.listar();
+        limparTabela();
+        pesquisarPorCpf(clientes);
+        
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
@@ -358,6 +364,16 @@ public class ClienteView extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnPreencherActionPerformed
 
+    private void pesquisarPorCpf(List<Cliente> clientes){
+        
+          DefaultTableModel model = (DefaultTableModel) JTCliente.getModel();
+        for (Cliente cliente : clientes) {
+            if(cliente.getCpf() == Integer.parseInt(txtPesquisaCpf.getText()))
+            model.addRow(new String[]{cliente.getNome(), String.valueOf(cliente.getCpf()), cliente.getSexo(), cliente.getTelefone()});
+        }
+        
+    }
+    
     private void inserirDadosTabela(List<Cliente> clientes) {
 
         DefaultTableModel model = (DefaultTableModel) JTCliente.getModel();
@@ -427,13 +443,13 @@ public class ClienteView extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblCpf;
     private javax.swing.JLabel lblCpfPesquisa;
     private javax.swing.JLabel lblMenu;
     private javax.swing.JLabel lblNome;
     private javax.swing.JTextField txtCPF;
     private javax.swing.JTextField txtNome;
+    private javax.swing.JTextField txtPesquisaCpf;
     private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
 }

@@ -6,8 +6,10 @@
 package view;
 
 import controler.ClienteController;
+import controler.ProdutoController;
 import java.util.List;
 import model.Cliente;
+import model.Produto;
 
 /**
  *
@@ -26,6 +28,14 @@ public class VendaView extends javax.swing.JFrame {
         
         for (Cliente cliente : clientes) {
              jComboBox1.addItem(String.valueOf(cliente.getCpf()));
+        }
+        
+         ProdutoController controlproduto = new ProdutoController();
+        
+        List<Produto> produtos = controlproduto.listar();
+        
+        for (Produto produto : produtos) {
+             jComboBox2.addItem(String.valueOf(produto.getCodigo()));
         }
         
     }
@@ -155,7 +165,6 @@ public class VendaView extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(0, 0, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -178,6 +187,11 @@ public class VendaView extends javax.swing.JFrame {
         );
 
         jLabel4.setText("MENU");
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -210,8 +224,14 @@ public class VendaView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        // TODO add your handling code here:
+      
     }//GEN-LAST:event_btnAddActionPerformed
+
+    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+        MenuView tela = new MenuView();
+        tela.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jLabel4MouseClicked
 
     /**
      * @param args the command line arguments

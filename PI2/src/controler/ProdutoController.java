@@ -34,7 +34,7 @@ public class ProdutoController {
         
     }
     
-     public List<Produto> listar() {
+     public static List<Produto> listar() {
         List<Produto> produtos = ProdutoDao.listar();
         return produtos;
     }
