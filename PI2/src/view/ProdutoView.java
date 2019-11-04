@@ -362,10 +362,10 @@ public class ProdutoView extends javax.swing.JFrame {
       produto.setEstoque(estoque);
       produto.setValor(valor);
       
-      limparTabela();
-        List<Produto> produtos = ProdutoController.atualizar(idProd,produto);
+       limparTabela();
+       List<Produto> produtos = ProdutoController.atualizar(idProd,produto);
 
-        inserirDadosTabela(produtos);
+      inserirDadosTabela(produtos);
  
         
        

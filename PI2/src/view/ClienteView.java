@@ -265,35 +265,7 @@ public class ClienteView extends javax.swing.JFrame {
     }//GEN-LAST:event_lblMenuMouseClicked
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-       int id = JTCliente.getSelectedRow();
-       
-       String nome = txtNome.getText();
-        String telefone = txtTelefone.getText();
-        int cpf = Integer.parseInt(txtCPF.getText());
-        String sexo = "";
-        if (jRadioButton1.isSelected()) {
-            sexo = jRadioButton1.getText();
-        } else if (jRadioButton2.isSelected()) {
-            sexo = jRadioButton2.getText();
-        }
-
-        Cliente cliente = new Cliente();
-        cliente.setNome(nome);
-        cliente.setCpf(cpf);
-        cliente.setSexo(sexo);
-        cliente.setTelefone(telefone);
-        
-        
-        limparTabela();
-        List<Cliente> clientes = ClienteController.atualizar(id,cliente);
-
-        inserirDadosTabela(clientes);
-       
-
-    }//GEN-LAST:event_btnAlterarActionPerformed
-
-
-    private void btnSalvar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvar1ActionPerformed
+        int id = JTCliente.getSelectedRow();
 
         String nome = txtNome.getText();
         String telefone = txtTelefone.getText();
@@ -312,21 +284,50 @@ public class ClienteView extends javax.swing.JFrame {
         cliente.setTelefone(telefone);
 
         limparTabela();
-        List<Cliente> clientes = ClienteController.cadastarCliente(cliente);
+        List<Cliente> clientes = ClienteController.atualizar(id, cliente);
 
         inserirDadosTabela(clientes);
+
+
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
+
+    private void btnSalvar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvar1ActionPerformed
+
+        String nome = txtNome.getText();
+        String telefone = txtTelefone.getText();
+        int cpf = Integer.parseInt(txtCPF.getText());
+        String sexo = "";
+        if (jRadioButton1.isSelected()) {
+            sexo = jRadioButton1.getText();
+        } else if (jRadioButton2.isSelected()) {
+            sexo = jRadioButton2.getText();
+        }
+      
+
+     
+            Cliente cliente = new Cliente();
+            cliente.setNome(nome);
+            cliente.setCpf(cpf);
+            cliente.setSexo(sexo);
+            cliente.setTelefone(telefone);
+
+            limparTabela();
+            List<Cliente> clientes = ClienteController.cadastarCliente(cliente);
+
+            inserirDadosTabela(clientes);
+            JOptionPane.showMessageDialog(this, "Usuario Salvo com sucesso!");
+       
 
 
     }//GEN-LAST:event_btnSalvar1ActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        
-        
-        
+
         List<Cliente> clientes = ClienteController.listar();
         limparTabela();
         pesquisarPorCpf(clientes);
-        
+
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
@@ -339,21 +340,20 @@ public class ClienteView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnPreencherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreencherActionPerformed
-       
 
         if (JTCliente.getRowCount() > 0) {
-           
+
             if (JTCliente.getSelectedRow() >= 0) {
 
                 txtNome.setText(JTCliente.getModel().getValueAt(JTCliente.getSelectedRow(), 0).toString());
                 txtCPF.setText(JTCliente.getModel().getValueAt(JTCliente.getSelectedRow(), 1).toString());
                 if (jRadioButton1.isSelected()) {
-                jRadioButton1.setText(JTCliente.getModel().getValueAt(JTCliente.getSelectedRow(), 2).toString());
+                    jRadioButton1.setText(JTCliente.getModel().getValueAt(JTCliente.getSelectedRow(), 2).toString());
                 } else if (jRadioButton2.isSelected()) {
-                jRadioButton2.setText(JTCliente.getModel().getValueAt(JTCliente.getSelectedRow(), 2).toString());
+                    jRadioButton2.setText(JTCliente.getModel().getValueAt(JTCliente.getSelectedRow(), 2).toString());
                 }
                 txtTelefone.setText(JTCliente.getModel().getValueAt(JTCliente.getSelectedRow(), 3).toString());
-               
+
             } else {
                 JOptionPane.showMessageDialog(this, "Selecione um produto para editar!");
             }
@@ -364,16 +364,17 @@ public class ClienteView extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnPreencherActionPerformed
 
-    private void pesquisarPorCpf(List<Cliente> clientes){
-        
-          DefaultTableModel model = (DefaultTableModel) JTCliente.getModel();
+    private void pesquisarPorCpf(List<Cliente> clientes) {
+
+        DefaultTableModel model = (DefaultTableModel) JTCliente.getModel();
         for (Cliente cliente : clientes) {
-            if(cliente.getCpf() == Integer.parseInt(txtPesquisaCpf.getText()))
-            model.addRow(new String[]{cliente.getNome(), String.valueOf(cliente.getCpf()), cliente.getSexo(), cliente.getTelefone()});
+            if (cliente.getCpf() == Integer.parseInt(txtPesquisaCpf.getText())) {
+                model.addRow(new String[]{cliente.getNome(), String.valueOf(cliente.getCpf()), cliente.getSexo(), cliente.getTelefone()});
+            }
         }
-        
+
     }
-    
+
     private void inserirDadosTabela(List<Cliente> clientes) {
 
         DefaultTableModel model = (DefaultTableModel) JTCliente.getModel();

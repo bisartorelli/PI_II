@@ -38,6 +38,8 @@ public class ProdutoController {
         List<Produto> produtos = ProdutoDao.listar();
         return produtos;
     }
+     
+     
 
     
    

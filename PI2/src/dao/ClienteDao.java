@@ -10,7 +10,7 @@ public class ClienteDao {
 
     public static List<Cliente> cadastarCliente(Cliente cliente) {
 
-        bd.add(cliente);  
+        bd.add(cliente);
         return bd;
     }
     

@@ -7,9 +7,12 @@ package view;
 
 import controler.ClienteController;
 import controler.ProdutoController;
+import controler.VendaController;
 import java.util.List;
+import javax.swing.table.DefaultTableModel;
 import model.Cliente;
 import model.Produto;
+import model.Venda;
 
 /**
  *
@@ -22,22 +25,22 @@ public class VendaView extends javax.swing.JFrame {
      */
     public VendaView() {
         initComponents();
-         ClienteController control = new ClienteController();
-        
+        ClienteController control = new ClienteController();
+
         List<Cliente> clientes = control.listar();
-        
+
         for (Cliente cliente : clientes) {
-             jComboBox1.addItem(String.valueOf(cliente.getCpf()));
+            jComboBox1.addItem(String.valueOf(cliente.getCpf()));
         }
-        
-         ProdutoController controlproduto = new ProdutoController();
-        
+
+        ProdutoController controlproduto = new ProdutoController();
+
         List<Produto> produtos = controlproduto.listar();
-        
+
         for (Produto produto : produtos) {
-             jComboBox2.addItem(String.valueOf(produto.getCodigo()));
+            jComboBox2.addItem(String.valueOf(produto.getCodigo()));
         }
-        
+
     }
 
     /**
@@ -51,20 +54,20 @@ public class VendaView extends javax.swing.JFrame {
 
         jPanel2 = new javax.swing.JPanel();
         txtQuantidade = new javax.swing.JTextField();
-        txtValorTotal = new javax.swing.JTextField();
         btnEditar = new javax.swing.JButton();
         bntExcluir = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
         btnFinalizar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tableVenda = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        lblTotal = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jComboBox2 = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -79,6 +82,11 @@ public class VendaView extends javax.swing.JFrame {
         });
 
         bntExcluir.setText("Excluir");
+        bntExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntExcluirActionPerformed(evt);
+            }
+        });
 
         btnAdd.setText("Salvar");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -88,8 +96,13 @@ public class VendaView extends javax.swing.JFrame {
         });
 
         btnFinalizar.setText("Finalizar Venda");
+        btnFinalizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFinalizarActionPerformed(evt);
+            }
+        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableVenda.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -97,17 +110,19 @@ public class VendaView extends javax.swing.JFrame {
                 "CPF", "Descrição Produto", "Quantidade", "Valor Unitário"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tableVenda);
 
         jLabel7.setText("Quantidade:");
 
         jLabel6.setText("Código - Descrição do Produto:");
 
-        jLabel1.setText("Valor Total:");
+        lblTotal.setText("0");
 
         jLabel2.setText("CPF:");
 
         jLabel3.setText("IDCont");
+
+        jLabel1.setText("Valor Total:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -140,9 +155,9 @@ public class VendaView extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(bntExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblTotal)
                             .addComponent(jLabel1))
-                        .addContainerGap(28, Short.MAX_VALUE))
+                        .addContainerGap(35, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel3)
@@ -173,15 +188,17 @@ public class VendaView extends javax.swing.JFrame {
                 .addGap(41, 41, 41)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(bntExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                        .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)))
                 .addComponent(btnFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50))
         );
@@ -220,12 +237,77 @@ public class VendaView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnEditarActionPerformed
+        int id = tableVenda.getSelectedRow();
+        String cpf = jComboBox1.getSelectedItem().toString();
+        int codigo = Integer.parseInt(jComboBox2.getSelectedItem().toString());
+        int quantidade = Integer.parseInt(txtQuantidade.getText());
 
+        ProdutoController nha = new ProdutoController();
+        List<Produto> produto = nha.listar();
+        Produto valor = produto.get(codigo - 1);
+        int valor2 = valor.getValor();
+
+        Venda venda = new Venda();
+        venda.setCpf(cpf);
+        venda.setCodigo(codigo);
+        venda.setQuantidade(quantidade);
+        venda.setValor(valor2);
+
+        limparTabela();
+        List<Venda> vendas = VendaController.alterarVenda(id, venda);
+        inserirDadosTabela(vendas);
+
+
+    }//GEN-LAST:event_btnEditarActionPerformed
+    int soma;
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-      
+
+        String cpf = jComboBox1.getSelectedItem().toString();
+        int codigo = Integer.parseInt(jComboBox2.getSelectedItem().toString());
+        int quantidade = Integer.parseInt(txtQuantidade.getText());
+
+        ProdutoController nha = new ProdutoController();
+        List<Produto> produto = nha.listar();
+        Produto valor = produto.get(codigo - 1);
+        int valor2 = valor.getValor();
+        int somador = 0;
+        somador = valor2 * quantidade;
+        soma = soma + somador;
+
+        lblTotal.setText("" + soma);
+
+        Venda venda = new Venda();
+        venda.setCpf(cpf);
+        venda.setCodigo(codigo);
+        venda.setQuantidade(quantidade);
+        venda.setValor(valor2);
+
+        limparTabela();
+        List<Venda> vendas = VendaController.cadastrarVenda(venda);
+        inserirDadosTabela(vendas);
+
+        jComboBox1.setEnabled(false);
+
+
     }//GEN-LAST:event_btnAddActionPerformed
+    private void inserirDadosTabela(List<Venda> vendas) {
+
+        DefaultTableModel model = (DefaultTableModel) tableVenda.getModel();
+        for (Venda venda : vendas) {
+
+            model.addRow(new String[]{venda.getCpf(), String.valueOf(venda.getCodigo()), String.valueOf(venda.getQuantidade()), String.valueOf(venda.getValor())});
+        }
+    }
+
+    private void limparTabela() {
+        DefaultTableModel model = (DefaultTableModel) tableVenda.getModel();
+
+        for (int i = model.getRowCount() - 1; i >= 0; i--) {
+            model.removeRow(i);
+
+        }
+
+    }
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         MenuView tela = new MenuView();
@@ -233,9 +315,18 @@ public class VendaView extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jLabel4MouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
+    private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed
+
+        jComboBox1.setEnabled(true);
+    }//GEN-LAST:event_btnFinalizarActionPerformed
+
+    private void bntExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntExcluirActionPerformed
+        int id = tableVenda.getSelectedRow();
+        limparTabela();
+        List<Venda> vendas = VendaController.remover(id);
+        inserirDadosTabela(vendas);
+    }//GEN-LAST:event_bntExcluirActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -283,8 +374,8 @@ public class VendaView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lblTotal;
+    private javax.swing.JTable tableVenda;
     private javax.swing.JTextField txtQuantidade;
-    private javax.swing.JTextField txtValorTotal;
     // End of variables declaration//GEN-END:variables
 }
