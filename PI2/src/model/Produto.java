@@ -10,13 +10,14 @@ package model;
  * @author bianca.osartorelli
  */
 public class Produto {
-    private String produto;
     private int codigo;
+    private String produto;  
     private String fabricante;
     private String categoria;
     private String tamanho;
     private int estoque;
     private int valor;
+    
   
     
     public String getProduto() {

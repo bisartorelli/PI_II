@@ -38,13 +38,16 @@ public class VendaDao {
        return bd;
     }
 
+    static int i = 0;
+    
     public static void vendaEfetuada() {
        
        vendaEfetuada = bd;
        bd.clear();
-       
+
     }
 
+   
   
     
 

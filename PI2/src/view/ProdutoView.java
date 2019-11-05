@@ -125,12 +125,14 @@ public class ProdutoView extends javax.swing.JFrame {
             }
         });
 
+        txtEstoque.setText("0");
         txtEstoque.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtEstoqueKeyTyped(evt);
             }
         });
 
+        txtValor.setText("0");
         txtValor.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtValorKeyTyped(evt);
@@ -298,7 +300,7 @@ public class ProdutoView extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(8, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblMenu)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(painel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -318,26 +320,48 @@ public class ProdutoView extends javax.swing.JFrame {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
      
         
+         
+        
         
         String produto = txtProduto.getText();
-        int codigo = i;
-        i++;
+        
         String fabricante = txtFabricante.getText();
+        
         String categoria = (String) CategoriaProd.getSelectedItem();
+        
         String tamanho = (String) TamanhoProd.getSelectedItem();
+        
         int estoque = Integer.parseInt(txtEstoque.getText());
         
         int valor = Integer.parseInt(txtValor.getText());
+         
+        if (estoque == 0){
+            JOptionPane.showMessageDialog(this, "O Estoque Não pode ser igual a 0!");
+            return;
+        }
+        
+        if(valor == 0){
+            JOptionPane.showMessageDialog(this, "O valor não pode ser igual a 0!");
+            return;
+        }
         
         
         if (produto.equals("")) {
             JOptionPane.showMessageDialog(this, "O Produto Não foi preenchido !");
             return;
         } 
-        else if (fabricante.equals("")) {
+         if (fabricante.equals("")) {
             JOptionPane.showMessageDialog(this, "O fabricante Não foi preenchido!");
             return;
         }
+        
+        
+        
+        
+        int codigo = i;
+        i++;
+       
+        
      
        
         
@@ -358,6 +382,13 @@ public class ProdutoView extends javax.swing.JFrame {
         limparTabela();
         List<Produto> produtos = ProdutoController.cadastarProduto(model);
         inserirDadosTabela(produtos);
+        JOptionPane.showMessageDialog(this, "Produto salvo Com sucesso");
+        
+        txtEstoque.setText("0");
+        txtFabricante.setText("");
+        txtProduto.setText("");
+        txtValor.setText("");
+        txtProdutoPesquisa.setText("");
 
 
         
@@ -387,6 +418,26 @@ public class ProdutoView extends javax.swing.JFrame {
       int estoque = Integer.parseInt(txtEstoque.getText());
       int valor = Integer.parseInt(txtValor.getText());
       
+         if (estoque == 0){
+            JOptionPane.showMessageDialog(this, "O Estoque Não pode ser igual a 0!");
+            return;
+        }
+        
+        if(valor == 0){
+            JOptionPane.showMessageDialog(this, "O valor não pode ser igual a 0!");
+            return;
+        }
+        
+        
+        if (nome.equals("")) {
+            JOptionPane.showMessageDialog(this, "O Produto Não foi preenchido !");
+            return;
+        } 
+         if (fabricante.equals("")) {
+            JOptionPane.showMessageDialog(this, "O fabricante Não foi preenchido!");
+            return;
+        }
+      
 
       
       Produto produto = new Produto();
@@ -401,7 +452,13 @@ public class ProdutoView extends javax.swing.JFrame {
        List<Produto> produtos = ProdutoController.atualizar(idProd,produto);
 
       inserirDadosTabela(produtos);
- 
+   
+      
+        txtEstoque.setText("0");
+        txtFabricante.setText("");
+        txtProduto.setText("");
+        txtValor.setText("");
+        txtProdutoPesquisa.setText("");
         
        
     }//GEN-LAST:event_btnEditarActionPerformed
@@ -446,7 +503,21 @@ public class ProdutoView extends javax.swing.JFrame {
     }//GEN-LAST:event_txtValorKeyTyped
 
     private void btnPreencherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreencherActionPerformed
-        
+        if (tabela.getRowCount() > 0) {
+
+            if (tabela.getSelectedRow() >= 0) {
+
+                txtProduto.setText(tabela.getModel().getValueAt(tabela.getSelectedRow(), 1).toString());
+                txtFabricante.setText(tabela.getModel().getValueAt(tabela.getSelectedRow(), 2).toString());
+                txtEstoque.setText(tabela.getModel().getValueAt(tabela.getSelectedRow(), 5).toString());
+                txtValor.setText(tabela.getModel().getValueAt(tabela.getSelectedRow(), 6).toString());
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Selecione um produto para editar!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Não há produtos para editar!");
+        }
         
     }//GEN-LAST:event_btnPreencherActionPerformed
        private void pesquisarPorCodigo(List<Produto> produtos){

@@ -239,7 +239,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
           <Properties>
-            <Property name="text" type="java.lang.String" value="C&#xf3;digo - Descri&#xe7;&#xe3;o do Produto:"/>
+            <Property name="text" type="java.lang.String" value="C&#xf3;digo do  Produto:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblTotal">

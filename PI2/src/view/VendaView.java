@@ -123,7 +123,7 @@ public class VendaView extends javax.swing.JFrame {
 
         jLabel7.setText("Quantidade:");
 
-        jLabel6.setText("Código - Descrição do Produto:");
+        jLabel6.setText("Código do  Produto:");
 
         lblTotal.setText("0");
 
@@ -309,10 +309,13 @@ public class VendaView extends javax.swing.JFrame {
         
         if(estoque >= 0){
         estoque1 = estoque - quantidade;
-        somador = valor2 * quantidade;
-        soma = soma + somador;
+       
         if(estoque1 >= 0)
         lblEstoque.setText("" + estoque1);
+        }
+        if(estoque1 >= 0){
+             somador = valor2 * quantidade;
+             soma = soma + somador;
         }
         estoque = estoque1;
         lblTotal.setText("" + soma);

@@ -7,11 +7,19 @@ package model;
 
 
 public class Venda {
-    
+    private int idVenda;
     private String cpf;
     private int codigo;
     private int quantidade;
     private int valor;
+
+    public int getIdVenda() {
+        return idVenda;
+    }
+
+    public void setIdVenda(int idVenda) {
+        this.idVenda = idVenda;
+    }
    
 
    

@@ -300,6 +300,17 @@ public class ClienteView extends javax.swing.JFrame {
         } else if (jRadioButton2.isSelected()) {
             sexo = jRadioButton2.getText();
         }
+        
+        if (nome.equals("")) {
+            JOptionPane.showMessageDialog(this, "O nome Não foi preenchido !");
+            return;
+        } else if (cpf.equals("")) {
+            JOptionPane.showMessageDialog(this, "O Cpf Não foi preenchido!");
+            return;
+        } else if (sexo.equals("")) {
+            JOptionPane.showMessageDialog(this, "O campo sexo Não foi Selecionado!");
+            return;
+        }
 
         Cliente cliente = new Cliente();
         cliente.setNome(nome);
@@ -350,15 +361,29 @@ public class ClienteView extends javax.swing.JFrame {
 
         inserirDadosTabela(clientes);
         JOptionPane.showMessageDialog(this, "Usuario Salvo com sucesso!");
+        
+        txtNome.setText("");
+        txtCPF.setText("");
+        txtPesquisaCpf.setText("");
+        txtTelefone.setText("");
+        
 
 
     }//GEN-LAST:event_btnSalvar1ActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
 
+        
+        if(txtPesquisaCpf.equals("")){
+           JOptionPane.showMessageDialog(this, "digite um cpf para busca!");
+             return;
+        }
+        
         List<Cliente> clientes = ClienteController.listar();
         limparTabela();
         pesquisarPorCpf(clientes);
+        
+        
 
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
