@@ -15,7 +15,7 @@ public class ProdutoDao {
         return bd;
     }
     
-    private static List<Produto> bd = new ArrayList<>();
+    public static List<Produto> bd = new ArrayList<>();
         
     public static List<Produto> removerProduto(int id) {
         bd.remove(id);

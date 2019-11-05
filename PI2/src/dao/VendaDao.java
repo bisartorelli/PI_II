@@ -21,7 +21,7 @@ public class VendaDao {
         return bd;
 
     }
-    private static List<Venda> bd = new ArrayList<>();
+    public static List<Venda> bd = new ArrayList<>();
     private static List<Venda> vendaEfetuada = new ArrayList<>();
 
     public static List<Venda> removerCliente(int id) {

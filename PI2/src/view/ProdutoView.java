@@ -7,6 +7,7 @@ package view;
 
 
 import controler.ProdutoController;
+import static dao.ProdutoDao.bd;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -37,7 +38,6 @@ public class ProdutoView extends javax.swing.JFrame {
 
         jPanel2 = new javax.swing.JPanel();
         painel = new javax.swing.JPanel();
-        CodLabel = new javax.swing.JLabel();
         ProdutoLabel = new javax.swing.JLabel();
         FabricanteLabel = new javax.swing.JLabel();
         CategoriaLabel = new javax.swing.JLabel();
@@ -53,13 +53,13 @@ public class ProdutoView extends javax.swing.JFrame {
         TamanhoProd = new javax.swing.JComboBox<>();
         txtEstoque = new javax.swing.JTextField();
         txtValor = new javax.swing.JTextField();
-        txtCodigo = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
         btnPesquisar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         txtProdutoPesquisa = new javax.swing.JTextField();
+        btnPreencher = new javax.swing.JButton();
         lblMenu = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -76,8 +76,6 @@ public class ProdutoView extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         painel.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados Produto"));
-
-        CodLabel.setText("Cod:");
 
         ProdutoLabel.setText("Nome do Produto:");
 
@@ -157,10 +155,6 @@ public class ProdutoView extends javax.swing.JFrame {
                         .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
                             .addComponent(txtFabricante))
-                        .addGap(49, 49, 49)
-                        .addComponent(CodLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(painelLayout.createSequentialGroup()
                         .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,9 +182,7 @@ public class ProdutoView extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ProdutoLabel)
-                    .addComponent(txtProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(CodLabel)
-                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(FabricanteLabel)
@@ -238,6 +230,13 @@ public class ProdutoView extends javax.swing.JFrame {
 
         jLabel7.setText("Produto:");
 
+        btnPreencher.setText("Preencher");
+        btnPreencher.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPreencherActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -249,9 +248,11 @@ public class ProdutoView extends javax.swing.JFrame {
                         .addComponent(jLabel7)
                         .addGap(18, 18, 18)
                         .addComponent(txtProdutoPesquisa)
-                        .addGap(205, 205, 205)
+                        .addGap(33, 33, 33)
                         .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18))
+                        .addGap(30, 30, 30)
+                        .addComponent(btnPreencher, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1)
                         .addContainerGap())))
@@ -263,7 +264,8 @@ public class ProdutoView extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(btnPesquisar)
-                    .addComponent(txtProdutoPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtProdutoPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPreencher))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(18, Short.MAX_VALUE))
@@ -311,13 +313,15 @@ public class ProdutoView extends javax.swing.JFrame {
     private void TamanhoProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TamanhoProdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TamanhoProdActionPerformed
-
+    
+    int i = bd.size() + 1;
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
      
         
         
         String produto = txtProduto.getText();
-        int codigo = Integer.parseInt(txtCodigo.getText());
+        int codigo = i;
+        i++;
         String fabricante = txtFabricante.getText();
         String categoria = (String) CategoriaProd.getSelectedItem();
         String tamanho = (String) TamanhoProd.getSelectedItem();
@@ -440,6 +444,11 @@ public class ProdutoView extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_txtValorKeyTyped
+
+    private void btnPreencherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreencherActionPerformed
+        
+        
+    }//GEN-LAST:event_btnPreencherActionPerformed
        private void pesquisarPorCodigo(List<Produto> produtos){
         
           DefaultTableModel model = (DefaultTableModel) tabela.getModel();
@@ -507,7 +516,6 @@ public class ProdutoView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel CategoriaLabel;
     private javax.swing.JComboBox<String> CategoriaProd;
-    private javax.swing.JLabel CodLabel;
     private javax.swing.JLabel EstoqueLabel;
     private javax.swing.JLabel FabricanteLabel;
     private javax.swing.JLabel ProdutoLabel;
@@ -516,6 +524,7 @@ public class ProdutoView extends javax.swing.JFrame {
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnPesquisar;
+    private javax.swing.JButton btnPreencher;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
@@ -525,7 +534,6 @@ public class ProdutoView extends javax.swing.JFrame {
     private javax.swing.JLabel lblMenu;
     private javax.swing.JPanel painel;
     private javax.swing.JTable tabela;
-    private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtEstoque;
     private javax.swing.JTextField txtFabricante;
     private javax.swing.JTextField txtProduto;

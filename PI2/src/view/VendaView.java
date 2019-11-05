@@ -301,16 +301,25 @@ public class VendaView extends javax.swing.JFrame {
         soma = soma + somador;
 
         lblTotal.setText("" + soma);
-
+        
+        if(estoque >= 0){
         estoque1 = estoque - quantidade;
-        estoque = estoque1;
+        if(estoque1 >= 0)
         lblEstoque.setText("" + estoque1);
+        }
+        estoque = estoque1;
+        
         
         Venda venda = new Venda();
         venda.setCpf(cpf);
         venda.setCodigo(codigo);
         venda.setQuantidade(quantidade);
         venda.setValor(valor2);
+        
+        if (estoque < 0){
+            JOptionPane.showMessageDialog(this, "Este Produto Não existe No estoque");
+            return;
+        }
         
 
         Produto model = new Produto();
@@ -319,7 +328,7 @@ public class VendaView extends javax.swing.JFrame {
         List<Produto> produtos = nha.controleEstoque(codigo -1, model);
         Produto tentativa = produtos.get(codigo - 1);
         estoque1 = tentativa.getEstoque();
-        lblEstoque.setText("" + estoque1);
+        
         
         limparTabela();
         List<Venda> vendas = VendaController.cadastrarVenda(venda);
