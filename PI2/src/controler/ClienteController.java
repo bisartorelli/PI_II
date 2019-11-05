@@ -35,6 +35,9 @@ public class ClienteController {
         List<Cliente> clientes = ClienteDao.listar();
         return clientes;
     }
+    
+   
+    
 
    
 }

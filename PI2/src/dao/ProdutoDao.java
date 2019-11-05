@@ -37,6 +37,11 @@ public class ProdutoDao {
     public static List<Produto> listar() {
         return bd;
     }
+
+    public static List<Produto> controleEstoque(int idProd, Produto produto) {
+      bd.get(idProd).setEstoque(produto.getEstoque());
+      return bd;
+    }
     
     }
     

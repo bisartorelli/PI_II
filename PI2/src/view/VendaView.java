@@ -9,6 +9,7 @@ import controler.ClienteController;
 import controler.ProdutoController;
 import controler.VendaController;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Cliente;
 import model.Produto;
@@ -30,7 +31,7 @@ public class VendaView extends javax.swing.JFrame {
         List<Cliente> clientes = control.listar();
 
         for (Cliente cliente : clientes) {
-            jComboBox1.addItem(String.valueOf(cliente.getCpf()));
+            jComboBox1.addItem(cliente.getCpf());
         }
 
         ProdutoController controlproduto = new ProdutoController();
@@ -68,6 +69,8 @@ public class VendaView extends javax.swing.JFrame {
         jComboBox2 = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        lblEstoque = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -120,9 +123,19 @@ public class VendaView extends javax.swing.JFrame {
 
         jLabel2.setText("CPF:");
 
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox2ActionPerformed(evt);
+            }
+        });
+
         jLabel3.setText("IDCont");
 
         jLabel1.setText("Valor Total:");
+
+        jLabel5.setText("Quantidade Em Estoque:");
+
+        lblEstoque.setText("0");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -145,23 +158,25 @@ public class VendaView extends javax.swing.JFrame {
                         .addGap(30, 30, 30)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnAdd)))))
+                            .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblEstoque)
+                            .addComponent(jLabel5))))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel3)
+                        .addGap(15, 15, 15))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(bntExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblTotal)
-                            .addComponent(jLabel1))
-                        .addContainerGap(35, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel3)
-                        .addGap(15, 15, 15))))
+                            .addComponent(jLabel1)
+                            .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(23, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -176,16 +191,22 @@ public class VendaView extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(jLabel6)
-                            .addComponent(jLabel7)))
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel5)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(0, 0, Short.MAX_VALUE)))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAdd))
-                .addGap(41, 41, 41)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblEstoque))
+                        .addGap(44, 44, 44))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(btnAdd)
+                        .addGap(18, 18, 18)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -243,6 +264,7 @@ public class VendaView extends javax.swing.JFrame {
         int quantidade = Integer.parseInt(txtQuantidade.getText());
 
         ProdutoController nha = new ProdutoController();
+
         List<Produto> produto = nha.listar();
         Produto valor = produto.get(codigo - 1);
         int valor2 = valor.getValor();
@@ -260,6 +282,8 @@ public class VendaView extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnEditarActionPerformed
     int soma;
+    int estoque;
+
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
 
         String cpf = jComboBox1.getSelectedItem().toString();
@@ -271,17 +295,32 @@ public class VendaView extends javax.swing.JFrame {
         Produto valor = produto.get(codigo - 1);
         int valor2 = valor.getValor();
         int somador = 0;
+        int estoque1 = estoque;
+
         somador = valor2 * quantidade;
         soma = soma + somador;
 
         lblTotal.setText("" + soma);
 
+        estoque1 = estoque - quantidade;
+        estoque = estoque1;
+        lblEstoque.setText("" + estoque1);
+        
         Venda venda = new Venda();
         venda.setCpf(cpf);
         venda.setCodigo(codigo);
         venda.setQuantidade(quantidade);
         venda.setValor(valor2);
+        
 
+        Produto model = new Produto();
+        model.setEstoque(estoque1);
+
+        List<Produto> produtos = nha.controleEstoque(codigo -1, model);
+        Produto tentativa = produtos.get(codigo - 1);
+        estoque1 = tentativa.getEstoque();
+        lblEstoque.setText("" + estoque1);
+        
         limparTabela();
         List<Venda> vendas = VendaController.cadastrarVenda(venda);
         inserirDadosTabela(vendas);
@@ -317,6 +356,14 @@ public class VendaView extends javax.swing.JFrame {
 
     private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed
 
+        
+        VendaController control = new VendaController();
+        control.vendaEfetuada();
+       
+        
+       
+        JOptionPane.showMessageDialog(this, "Sua venda Foi salva em nossos dados!(array)");
+        limparTabela();
         jComboBox1.setEnabled(true);
     }//GEN-LAST:event_btnFinalizarActionPerformed
 
@@ -326,6 +373,17 @@ public class VendaView extends javax.swing.JFrame {
         List<Venda> vendas = VendaController.remover(id);
         inserirDadosTabela(vendas);
     }//GEN-LAST:event_bntExcluirActionPerformed
+
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+        ProdutoController nha = new ProdutoController();
+        List<Produto> produto = nha.listar();
+        String codigo1 = jComboBox2.getSelectedItem().toString();
+        int codigo = Integer.parseInt(codigo1);
+        Produto linhaCorreta = produto.get(codigo - 1);
+        int estoq = linhaCorreta.getEstoque();
+        estoque = estoq;
+        lblEstoque.setText("" + estoque);
+    }//GEN-LAST:event_jComboBox2ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -370,10 +428,12 @@ public class VendaView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblEstoque;
     private javax.swing.JLabel lblTotal;
     private javax.swing.JTable tableVenda;
     private javax.swing.JTextField txtQuantidade;

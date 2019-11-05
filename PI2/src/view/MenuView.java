@@ -93,6 +93,11 @@ public class MenuView extends javax.swing.JFrame {
         mnRelatorio.setText("Relatório");
 
         jMenuItem4.setText("Relatórios de Venda");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         mnRelatorio.add(jMenuItem4);
 
         jMenuBar1.add(mnRelatorio);
@@ -131,6 +136,12 @@ public class MenuView extends javax.swing.JFrame {
         venda.setVisible(true);
         dispose();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+       RelatorioAnaliticoView relatorioAnalitico = new RelatorioAnaliticoView();
+        relatorioAnalitico.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments

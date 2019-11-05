@@ -32,6 +32,13 @@ public class VendaController {
          List<Venda> clientes = VendaDao.alterarVenda(id,venda);
          return clientes;
     }
+
+    public void vendaEfetuada() {
+        VendaDao.vendaEfetuada();
+        
+    }
+  
+    
     
       
     

@@ -66,6 +66,24 @@ public class ClienteView extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados Cliente"));
 
+        txtNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNomeKeyTyped(evt);
+            }
+        });
+
+        txtTelefone.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTelefoneKeyTyped(evt);
+            }
+        });
+
+        txtCPF.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCPFKeyTyped(evt);
+            }
+        });
+
         lblNome.setText("Nome:");
 
         lblCpf.setText("CPF:");
@@ -163,6 +181,12 @@ public class ClienteView extends javax.swing.JFrame {
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Pesquisa"));
+
+        txtPesquisaCpf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPesquisaCpfKeyTyped(evt);
+            }
+        });
 
         btnPesquisar.setText("Pesquisar");
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -269,7 +293,7 @@ public class ClienteView extends javax.swing.JFrame {
 
         String nome = txtNome.getText();
         String telefone = txtTelefone.getText();
-        int cpf = Integer.parseInt(txtCPF.getText());
+        String cpf = txtCPF.getText();
         String sexo = "";
         if (jRadioButton1.isSelected()) {
             sexo = jRadioButton1.getText();
@@ -296,28 +320,36 @@ public class ClienteView extends javax.swing.JFrame {
 
         String nome = txtNome.getText();
         String telefone = txtTelefone.getText();
-        int cpf = Integer.parseInt(txtCPF.getText());
+        String cpf = txtCPF.getText();
         String sexo = "";
         if (jRadioButton1.isSelected()) {
             sexo = jRadioButton1.getText();
         } else if (jRadioButton2.isSelected()) {
             sexo = jRadioButton2.getText();
         }
-      
 
-     
-            Cliente cliente = new Cliente();
-            cliente.setNome(nome);
-            cliente.setCpf(cpf);
-            cliente.setSexo(sexo);
-            cliente.setTelefone(telefone);
+        if (nome.equals("")) {
+            JOptionPane.showMessageDialog(this, "O nome Não foi preenchido !");
+            return;
+        } else if (cpf.equals("")) {
+            JOptionPane.showMessageDialog(this, "O Cpf Não foi preenchido!");
+            return;
+        } else if (sexo.equals("")) {
+            JOptionPane.showMessageDialog(this, "O campo sexo Não foi Selecionado!");
+            return;
+        }
 
-            limparTabela();
-            List<Cliente> clientes = ClienteController.cadastarCliente(cliente);
+        Cliente cliente = new Cliente();
+        cliente.setNome(nome);
+        cliente.setCpf(cpf);
+        cliente.setSexo(sexo);
+        cliente.setTelefone(telefone);
 
-            inserirDadosTabela(clientes);
-            JOptionPane.showMessageDialog(this, "Usuario Salvo com sucesso!");
-       
+        limparTabela();
+        List<Cliente> clientes = ClienteController.cadastarCliente(cliente);
+
+        inserirDadosTabela(clientes);
+        JOptionPane.showMessageDialog(this, "Usuario Salvo com sucesso!");
 
 
     }//GEN-LAST:event_btnSalvar1ActionPerformed
@@ -364,11 +396,39 @@ public class ClienteView extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnPreencherActionPerformed
 
+    private void txtCPFKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCPFKeyTyped
+        String caracteres = "0987654321";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCPFKeyTyped
+
+    private void txtNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyTyped
+        String caracteres = "0987654321";
+        if (caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNomeKeyTyped
+
+    private void txtTelefoneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefoneKeyTyped
+         String caracteres = "0987654321";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtTelefoneKeyTyped
+
+    private void txtPesquisaCpfKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaCpfKeyTyped
+         String caracteres = "0987654321";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtPesquisaCpfKeyTyped
+
     private void pesquisarPorCpf(List<Cliente> clientes) {
 
         DefaultTableModel model = (DefaultTableModel) JTCliente.getModel();
         for (Cliente cliente : clientes) {
-            if (cliente.getCpf() == Integer.parseInt(txtPesquisaCpf.getText())) {
+            if (cliente.getCpf().equals(txtPesquisaCpf.getText())) {
                 model.addRow(new String[]{cliente.getNome(), String.valueOf(cliente.getCpf()), cliente.getSexo(), cliente.getTelefone()});
             }
         }

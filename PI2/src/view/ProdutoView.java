@@ -112,12 +112,30 @@ public class ProdutoView extends javax.swing.JFrame {
             }
         });
 
+        txtProduto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtProdutoKeyTyped(evt);
+            }
+        });
+
         CategoriaProd.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bermuda", "Camiseta", "Vestido", "Jaqueta", "Lingerie" }));
 
         TamanhoProd.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PP", "P", "M", "G", "GG" }));
         TamanhoProd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TamanhoProdActionPerformed(evt);
+            }
+        });
+
+        txtEstoque.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtEstoqueKeyTyped(evt);
+            }
+        });
+
+        txtValor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtValorKeyTyped(evt);
             }
         });
 
@@ -299,12 +317,25 @@ public class ProdutoView extends javax.swing.JFrame {
         
         
         String produto = txtProduto.getText();
-        int codigo = Integer.parseInt(txtCodigo.getText());;
+        int codigo = Integer.parseInt(txtCodigo.getText());
         String fabricante = txtFabricante.getText();
         String categoria = (String) CategoriaProd.getSelectedItem();
         String tamanho = (String) TamanhoProd.getSelectedItem();
         int estoque = Integer.parseInt(txtEstoque.getText());
+        
         int valor = Integer.parseInt(txtValor.getText());
+        
+        
+        if (produto.equals("")) {
+            JOptionPane.showMessageDialog(this, "O Produto Não foi preenchido !");
+            return;
+        } 
+        else if (fabricante.equals("")) {
+            JOptionPane.showMessageDialog(this, "O fabricante Não foi preenchido!");
+            return;
+        }
+     
+       
         
 
         Produto model = new Produto();
@@ -388,6 +419,27 @@ public class ProdutoView extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_btnPesquisarActionPerformed
+
+    private void txtProdutoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProdutoKeyTyped
+         String caracteres = "0987654321";
+        if (caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtProdutoKeyTyped
+
+    private void txtEstoqueKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEstoqueKeyTyped
+         String caracteres = "0987654321";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtEstoqueKeyTyped
+
+    private void txtValorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorKeyTyped
+         String caracteres = "0987654321";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtValorKeyTyped
        private void pesquisarPorCodigo(List<Produto> produtos){
         
           DefaultTableModel model = (DefaultTableModel) tabela.getModel();

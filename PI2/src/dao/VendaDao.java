@@ -37,6 +37,15 @@ public class VendaDao {
         bd.get(id).setValor(venda.getValor());
        return bd;
     }
+
+    public static void vendaEfetuada() {
+       
+       vendaEfetuada = bd;
+       bd.clear();
+       
+    }
+
+  
     
 
 }

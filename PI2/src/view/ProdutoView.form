@@ -239,6 +239,9 @@
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtProduto">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtProdutoKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtFabricante">
         </Component>
@@ -278,8 +281,14 @@
           </AuxValues>
         </Component>
         <Component class="javax.swing.JTextField" name="txtEstoque">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtEstoqueKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtValor">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtValorKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtCodigo">
         </Component>

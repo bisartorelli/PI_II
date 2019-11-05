@@ -12,6 +12,9 @@ public class Venda {
     private int codigo;
     private int quantidade;
     private int valor;
+   
+
+   
 
     public int getValor() {
         return valor;

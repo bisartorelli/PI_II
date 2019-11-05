@@ -39,6 +39,15 @@ public class ProdutoController {
         return produtos;
     }
      
+      public static List<Produto> controleEstoque(int idProd , Produto produto)
+    {
+        List<Produto> produtos = ProdutoDao.controleEstoque(idProd,produto);
+        return produtos;
+        
+    }
+     
+      
+     
      
 
     
