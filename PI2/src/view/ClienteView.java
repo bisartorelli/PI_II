@@ -348,6 +348,9 @@ public class ClienteView extends javax.swing.JFrame {
         } else if (sexo.equals("")) {
             JOptionPane.showMessageDialog(this, "O campo sexo Não foi Selecionado!");
             return;
+        }else if (telefone.equals("")) {
+            JOptionPane.showMessageDialog(this, "O campo sexo Não foi Selecionado!");
+            return;
         }
 
         Cliente cliente = new Cliente();
