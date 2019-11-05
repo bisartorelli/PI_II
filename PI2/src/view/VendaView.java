@@ -77,6 +77,12 @@ public class VendaView extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Itens Venda"));
 
+        txtQuantidade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtQuantidadeKeyTyped(evt);
+            }
+        });
+
         btnEditar.setText("Editar");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -297,18 +303,19 @@ public class VendaView extends javax.swing.JFrame {
         int somador = 0;
         int estoque1 = estoque;
 
-        somador = valor2 * quantidade;
-        soma = soma + somador;
+        
 
-        lblTotal.setText("" + soma);
+        
         
         if(estoque >= 0){
         estoque1 = estoque - quantidade;
+        somador = valor2 * quantidade;
+        soma = soma + somador;
         if(estoque1 >= 0)
         lblEstoque.setText("" + estoque1);
         }
         estoque = estoque1;
-        
+        lblTotal.setText("" + soma);
         
         Venda venda = new Venda();
         venda.setCpf(cpf);
@@ -365,9 +372,10 @@ public class VendaView extends javax.swing.JFrame {
 
     private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed
 
-        
+        Venda model = new Venda();
         VendaController control = new VendaController();
         control.vendaEfetuada();
+        
        
         
        
@@ -393,6 +401,13 @@ public class VendaView extends javax.swing.JFrame {
         estoque = estoq;
         lblEstoque.setText("" + estoque);
     }//GEN-LAST:event_jComboBox2ActionPerformed
+
+    private void txtQuantidadeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantidadeKeyTyped
+       String caracteres = "0987654321";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtQuantidadeKeyTyped
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
