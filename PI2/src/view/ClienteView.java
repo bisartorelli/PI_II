@@ -6,7 +6,10 @@
 package view;
 
 import controler.ClienteController;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -360,9 +363,17 @@ public class ClienteView extends javax.swing.JFrame {
         cliente.setTelefone(telefone);
 
         limparTabela();
-        List<Cliente> clientes = ClienteController.cadastarCliente(cliente);
+         
+        ClienteController clientes =  new ClienteController();
+        
+        try {
+            clientes.cadastarCliente(cliente);
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
 
-        inserirDadosTabela(clientes);
+      //  inserirDadosTabela(clientes);
         JOptionPane.showMessageDialog(this, "Usuario Salvo com sucesso!");
         
         txtNome.setText("");

@@ -6,6 +6,7 @@
 package controler;
 
 import dao.ClienteDao;
+import java.sql.SQLException;
 import java.util.List;
 import model.Cliente;
 
@@ -14,10 +15,11 @@ public class ClienteController {
     
   
 
-    public static List<Cliente> cadastarCliente(Cliente cliente) {
+    public void cadastarCliente(Cliente cliente) throws SQLException {
 
-        List<Cliente> clientes = ClienteDao.cadastarCliente(cliente);
-        return clientes;
+        ClienteDao clientes = new ClienteDao();
+        clientes.cadastarCliente(cliente);
+        
     }
 
     public static List<Cliente> remover(int id) {
