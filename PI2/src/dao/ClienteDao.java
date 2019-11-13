@@ -3,6 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,9 @@ import model.Cliente;
 
 public class ClienteDao {
 
-    Connection conexao;
+   static Connection conexao;
+
+   
 
     public ClienteDao() throws SQLException {
         conexao = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3307/tdsRoupa", "root", "");
@@ -33,22 +36,82 @@ public class ClienteDao {
 
     private static List<Cliente> bd = new ArrayList<>();
 
-    public static List<Cliente> removerCliente(int id) {
-        bd.remove(id);
-        return bd;
+    public void removerCliente(int id) throws SQLException {
+         String sql = "delete from cliente where idCliente = ?";      
+       PreparedStatement instrucaoSQL = conexao.prepareStatement(sql);
+       
+       instrucaoSQL.setInt(1,id);
+     
+      
+       int linhasAfetadas = instrucaoSQL.executeUpdate();
 
     }
 
-    public static List<Cliente> atualizar(int id, Cliente cliente) {
-        bd.get(id).setCpf(cliente.getCpf());
-        bd.get(id).setNome(cliente.getNome());
-        bd.get(id).setSexo(cliente.getSexo());
-        bd.get(id).setTelefone(cliente.getTelefone());
-        return bd;
+    public void alterar(int id, Cliente cliente) throws SQLException {
+       String sql = "update cliente set nomeCliente = ?, cpfCliente = ?, telefone  = ?, sexo = ? where idCliente = ?";
+
+        PreparedStatement instrucaoSQL = conexao.prepareStatement(sql);
+        
+        instrucaoSQL.setString(1, cliente.getNome());
+        instrucaoSQL.setString(2, cliente.getCpf());
+        instrucaoSQL.setString(3, cliente.getTelefone());
+        instrucaoSQL.setString(4, cliente.getSexo());
+        instrucaoSQL.setInt(5, id);
+        
+
+        int linhasAfetadas = instrucaoSQL.executeUpdate();
     }
 
-    public static List<Cliente> listar() {
-        return bd;
+    public static List<Cliente> listar() throws SQLException {
+         String sql = "select * from cliente";
+         
+         PreparedStatement instrucaoSQL = conexao.prepareStatement(sql);
+         
+         
+        ResultSet rs =  instrucaoSQL.executeQuery();
+        List<Cliente> clientes = new ArrayList<>();
+        
+        while(rs.next()){
+            Cliente cliente = new Cliente();
+            cliente.setId(rs.getInt("idCliente"));
+            cliente.setNome(rs.getString("nomeCliente"));
+            cliente.setCpf(rs.getString("cpfCliente"));
+            cliente.setTelefone(rs.getString("telefone"));
+            cliente.setSexo(rs.getString("sexo"));
+            
+            clientes.add(cliente);
+            
+        }
+        rs.close();
+        
+        return clientes;
+         
+    }
+    
+     public List<Cliente> listarCpf(String cpf) throws SQLException {
+        String sql = "select * from cliente where cpfCliente = ?";
+        
+        PreparedStatement instrucaoSQL = conexao.prepareStatement(sql);
+        instrucaoSQL.setString(1,cpf);
+        
+        ResultSet rs =  instrucaoSQL.executeQuery();
+        List<Cliente> clientes = new ArrayList<>();
+        
+        while(rs.next()){
+            Cliente cliente = new Cliente();
+            cliente.setId(rs.getInt("idCliente"));
+            cliente.setNome(rs.getString("nomeCliente"));
+            cliente.setCpf(rs.getString("cpfCliente"));
+            cliente.setTelefone(rs.getString("telefone"));
+            cliente.setSexo(rs.getString("sexo"));
+            
+            clientes.add(cliente);
+            
+        }
+        rs.close();
+        
+        return clientes;
+        
     }
 
 }
