@@ -5,6 +5,9 @@
  */
 package view;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import view.ClienteView;
 import view.ClienteView;
 
@@ -132,7 +135,12 @@ public class MenuView extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        VendaView venda = new VendaView();
+        VendaView venda = null;
+        try {
+            venda = new VendaView();
+        } catch (SQLException ex) {
+            Logger.getLogger(MenuView.class.getName()).log(Level.SEVERE, null, ex);
+        }
         venda.setVisible(true);
         dispose();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
