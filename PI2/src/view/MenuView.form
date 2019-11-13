@@ -122,13 +122,13 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="103" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jButton3" min="-2" pref="142" max="-2" attributes="0"/>
-                              <Component id="jButton4" min="-2" pref="142" max="-2" attributes="0"/>
+                              <Component id="btnVenda" min="-2" pref="142" max="-2" attributes="0"/>
+                              <Component id="btnRelatorio" min="-2" pref="142" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jButton2" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButton1" alignment="1" min="-2" pref="117" max="-2" attributes="0"/>
+                              <Component id="btnProduto" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnCliente" alignment="1" min="-2" pref="117" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -143,13 +143,13 @@
                   <Component id="jLabel2" min="-2" pref="232" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jButton3" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
-                      <Component id="jButton2" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
+                      <Component id="btnVenda" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
+                      <Component id="btnProduto" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jButton1" min="-2" pref="45" max="-2" attributes="0"/>
-                      <Component id="jButton4" alignment="0" min="-2" pref="45" max="-2" attributes="0"/>
+                      <Component id="btnCliente" min="-2" pref="45" max="-2" attributes="0"/>
+                      <Component id="btnRelatorio" alignment="0" min="-2" pref="45" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
               </Group>
@@ -157,23 +157,29 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="btnCliente">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/images/Clients-icon.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="  CLIENTES"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClienteActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton2">
+        <Component class="javax.swing.JButton" name="btnProduto">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/images/T-Shirt-icon.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="   PRODUTOS"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProdutoActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton3">
+        <Component class="javax.swing.JButton" name="btnVenda">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/images/new-file-icon.png"/>
@@ -182,16 +188,19 @@
             <Property name="alignmentX" type="float" value="0.8"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVendaActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton4">
+        <Component class="javax.swing.JButton" name="btnRelatorio">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/images/report-icon.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="RELAT&#xd3;RIOS"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRelatorioActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>

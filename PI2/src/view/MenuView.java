@@ -5,6 +5,9 @@
  */
 package view;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import view.ClienteView;
 import view.ClienteView;
 
@@ -31,10 +34,10 @@ public class MenuView extends javax.swing.JFrame {
     private void initComponents() {
 
         jDesktopPane1 = new javax.swing.JDesktopPane();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnCliente = new javax.swing.JButton();
+        btnProduto = new javax.swing.JButton();
+        btnVenda = new javax.swing.JButton();
+        btnRelatorio = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnCliente = new javax.swing.JMenu();
@@ -50,31 +53,46 @@ public class MenuView extends javax.swing.JFrame {
 
         jDesktopPane1.setBackground(new java.awt.Color(234, 125, 0));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Clients-icon.png"))); // NOI18N
-        jButton1.setText("  CLIENTES");
-
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/T-Shirt-icon.png"))); // NOI18N
-        jButton2.setText("   PRODUTOS");
-
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/new-file-icon.png"))); // NOI18N
-        jButton3.setText("   NOVA VENDA");
-        jButton3.setAlignmentX(0.8F);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Clients-icon.png"))); // NOI18N
+        btnCliente.setText("  CLIENTES");
+        btnCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnClienteActionPerformed(evt);
             }
         });
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/report-icon.png"))); // NOI18N
-        jButton4.setText("RELATÓRIOS");
+        btnProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/T-Shirt-icon.png"))); // NOI18N
+        btnProduto.setText("   PRODUTOS");
+        btnProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProdutoActionPerformed(evt);
+            }
+        });
+
+        btnVenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/new-file-icon.png"))); // NOI18N
+        btnVenda.setText("   NOVA VENDA");
+        btnVenda.setAlignmentX(0.8F);
+        btnVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVendaActionPerformed(evt);
+            }
+        });
+
+        btnRelatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/report-icon.png"))); // NOI18N
+        btnRelatorio.setText("RELATÓRIOS");
+        btnRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRelatorioActionPerformed(evt);
+            }
+        });
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/TADS ROUPAS Logo (2).png"))); // NOI18N
         jLabel2.setToolTipText("");
 
-        jDesktopPane1.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jButton3, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jButton4, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(btnCliente, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(btnProduto, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(btnVenda, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(btnRelatorio, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
@@ -89,12 +107,12 @@ public class MenuView extends javax.swing.JFrame {
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
                         .addGap(103, 103, 103)
                         .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(87, 87, 87)
                         .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(btnProduto, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(67, Short.MAX_VALUE))
         );
         jDesktopPane1Layout.setVerticalGroup(
@@ -104,12 +122,12 @@ public class MenuView extends javax.swing.JFrame {
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(44, 44, 44)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(74, 74, 74))
         );
 
@@ -193,7 +211,12 @@ public class MenuView extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        VendaView venda = new VendaView();
+        VendaView venda = null;
+        try {
+            venda = new VendaView();
+        } catch (SQLException ex) {
+            Logger.getLogger(MenuView.class.getName()).log(Level.SEVERE, null, ex);
+        }
         venda.setVisible(true);
         dispose();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
@@ -204,9 +227,34 @@ public class MenuView extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void btnVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendaActionPerformed
+         VendaView venda = null;
+        try {
+            venda = new VendaView();
+        } catch (SQLException ex) {
+            Logger.getLogger(MenuView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        venda.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnVendaActionPerformed
+
+    private void btnRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioActionPerformed
+        RelatorioAnaliticoView relatorioAnalitico = new RelatorioAnaliticoView();
+        relatorioAnalitico.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnRelatorioActionPerformed
+
+    private void btnClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteActionPerformed
+        ClienteView cliente = new ClienteView();
+        cliente.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnClienteActionPerformed
+
+    private void btnProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdutoActionPerformed
+        ProdutoView produto = new ProdutoView();
+        produto.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnProdutoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -245,10 +293,10 @@ public class MenuView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btnCliente;
+    private javax.swing.JButton btnProduto;
+    private javax.swing.JButton btnRelatorio;
+    private javax.swing.JButton btnVenda;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;
