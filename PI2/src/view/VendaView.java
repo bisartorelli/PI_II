@@ -8,7 +8,10 @@ package view;
 import controler.ClienteController;
 import controler.ProdutoController;
 import controler.VendaController;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Cliente;
@@ -24,7 +27,7 @@ public class VendaView extends javax.swing.JFrame {
     /**
      * Creates new form VendaView
      */
-    public VendaView() {
+    public VendaView() throws SQLException {
         initComponents();
         ClienteController control = new ClienteController();
 
@@ -439,7 +442,11 @@ public class VendaView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VendaView().setVisible(true);
+                try {
+                    new VendaView().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(VendaView.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

@@ -7,6 +7,7 @@ package view;
 
 import controler.ClienteController;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -205,11 +206,11 @@ public class ClienteView extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nome", "CPF", "Sexo", "Telefone"
+                "ID", "Nome", "CPF", "Sexo", "Telefone"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -292,7 +293,7 @@ public class ClienteView extends javax.swing.JFrame {
     }//GEN-LAST:event_lblMenuMouseClicked
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        int id = JTCliente.getSelectedRow();
+         int id = Integer.parseInt((String) JTCliente.getValueAt(JTCliente.getSelectedRow(),0));
 
         String nome = txtNome.getText();
         String telefone = txtTelefone.getText();
@@ -321,10 +322,28 @@ public class ClienteView extends javax.swing.JFrame {
         cliente.setSexo(sexo);
         cliente.setTelefone(telefone);
 
+        
+        
+        ClienteController control = new ClienteController();
         limparTabela();
-        List<Cliente> clientes = ClienteController.atualizar(id, cliente);
+        
+        
+        
+        try {
+            control.alterar(id,cliente);
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+         List<Cliente> listarClientes = new ArrayList<>();
+        try {
+          listarClientes = control.listar();
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteView.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-        inserirDadosTabela(clientes);
+      
+        inserirDadosTabela(listarClientes);
 
 
     }//GEN-LAST:event_btnAlterarActionPerformed
@@ -372,8 +391,15 @@ public class ClienteView extends javax.swing.JFrame {
             Logger.getLogger(ClienteView.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-
-      //  inserirDadosTabela(clientes);
+        List<Cliente> listarClientes = new ArrayList<>();
+        try {
+          listarClientes = clientes.listar();
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        limparTabela();
+        inserirDadosTabela(listarClientes);
         JOptionPane.showMessageDialog(this, "Usuario Salvo com sucesso!");
         
         txtNome.setText("");
@@ -392,21 +418,53 @@ public class ClienteView extends javax.swing.JFrame {
            JOptionPane.showMessageDialog(this, "digite um cpf para busca!");
              return;
         }
+        String cpf = txtPesquisaCpf.getText();
+        ClienteController control = new ClienteController();
         
-        List<Cliente> clientes = ClienteController.listar();
+        List<Cliente> listar =  new ArrayList<>();
+        
+        try {
+          listar =  control.listarCpf(cpf);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        
+        
+        
         limparTabela();
-        pesquisarPorCpf(clientes);
+        inserirDadosTabela(listar);
         
         
 
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-
-        int id = JTCliente.getSelectedRow();
+        ClienteController clientes =  new ClienteController();
+        int id = Integer.parseInt((String) JTCliente.getValueAt(JTCliente.getSelectedRow(),0));
+        
+        ClienteController control = new ClienteController();
+        try {
+            control.remover(id);
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         limparTabela();
-        List<Cliente> clientes = ClienteController.remover(id);
-        inserirDadosTabela(clientes);
+        
+        List<Cliente> listarClientes = new ArrayList<>();
+        try {
+          listarClientes = clientes.listar();
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        inserirDadosTabela(listarClientes);
+        
+        
+       
+        
 
     }//GEN-LAST:event_btnExcluirActionPerformed
 
@@ -416,14 +474,14 @@ public class ClienteView extends javax.swing.JFrame {
 
             if (JTCliente.getSelectedRow() >= 0) {
 
-                txtNome.setText(JTCliente.getModel().getValueAt(JTCliente.getSelectedRow(), 0).toString());
-                txtCPF.setText(JTCliente.getModel().getValueAt(JTCliente.getSelectedRow(), 1).toString());
+                txtNome.setText(JTCliente.getModel().getValueAt(JTCliente.getSelectedRow(), 1).toString());
+                txtCPF.setText(JTCliente.getModel().getValueAt(JTCliente.getSelectedRow(), 2).toString());
                 if (jRadioButton1.isSelected()) {
-                    jRadioButton1.setText(JTCliente.getModel().getValueAt(JTCliente.getSelectedRow(), 2).toString());
+                    jRadioButton1.setText(JTCliente.getModel().getValueAt(JTCliente.getSelectedRow(), 3).toString());
                 } else if (jRadioButton2.isSelected()) {
-                    jRadioButton2.setText(JTCliente.getModel().getValueAt(JTCliente.getSelectedRow(), 2).toString());
+                    jRadioButton2.setText(JTCliente.getModel().getValueAt(JTCliente.getSelectedRow(), 3).toString());
                 }
-                txtTelefone.setText(JTCliente.getModel().getValueAt(JTCliente.getSelectedRow(), 3).toString());
+                txtTelefone.setText(JTCliente.getModel().getValueAt(JTCliente.getSelectedRow(), 4).toString());
 
             } else {
                 JOptionPane.showMessageDialog(this, "Selecione um produto para editar!");
@@ -478,7 +536,7 @@ public class ClienteView extends javax.swing.JFrame {
 
         DefaultTableModel model = (DefaultTableModel) JTCliente.getModel();
         for (Cliente cliente : clientes) {
-            model.addRow(new String[]{cliente.getNome(), String.valueOf(cliente.getCpf()), cliente.getSexo(), cliente.getTelefone()});
+            model.addRow(new String[]{String.valueOf(cliente.getId()),cliente.getNome(), String.valueOf(cliente.getCpf()), cliente.getSexo(), cliente.getTelefone()});
         }
     }
 

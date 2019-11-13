@@ -22,19 +22,25 @@ public class ClienteController {
         
     }
 
-    public static List<Cliente> remover(int id) {
-        List<Cliente> clientes = ClienteDao.removerCliente(id);
-        return clientes;
-    }
-     public static List<Cliente> atualizar(int id , Cliente cliente)
-    {
-        List<Cliente> clientes = ClienteDao.atualizar(id,cliente);
-        return clientes;
+    public void remover(int id) throws SQLException {
+        ClienteDao clientes =  new ClienteDao();
+        clientes.removerCliente(id);
         
     }
+     public void alterar(int id,Cliente cliente) throws SQLException
+    {
+        ClienteDao clientes =  new ClienteDao();
+        clientes.alterar(id, cliente);
+    }
 
-    public static List<Cliente> listar() {
+    public static List<Cliente> listar() throws SQLException {
         List<Cliente> clientes = ClienteDao.listar();
+        return clientes;
+    }
+    
+     public static List<Cliente> listarCpf(String cpf) throws SQLException {
+         ClienteDao ClienteDao = new ClienteDao();
+        List<Cliente> clientes = ClienteDao.listarCpf(cpf);
         return clientes;
     }
     
