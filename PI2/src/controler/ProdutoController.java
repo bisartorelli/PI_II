@@ -7,6 +7,7 @@ package controler;
 
 
 import dao.ProdutoDao;
+import java.sql.SQLException;
 import java.util.List;
 import model.Produto;
 
@@ -16,42 +17,30 @@ import model.Produto;
  */
 public class ProdutoController {
         
-    public static List<Produto> cadastarProduto(Produto produto) {
+    
+    public void cadastarCliente(Produto produto) throws SQLException {
 
-        List<Produto> produtos = ProdutoDao.cadastarProduto(produto);
-        return produtos;
-    }
-
-  
-    public static List<Produto> remover(int idProd) {
-        List<Produto> produtos = ProdutoDao.removerProduto(idProd);
-        return produtos;
-    }
-    public static List<Produto> atualizar(int idProd , Produto produto)
-    {
-        List<Produto> produtos = ProdutoDao.atualizar(idProd,produto);
-        return produtos;
+        ProdutoDao produtos = new ProdutoDao();
+        produtos.cadastarProduto(produto);
         
     }
-    
-     public static List<Produto> listar() {
+
+    public void remover(int id) throws SQLException {
+        ProdutoDao produtos =  new ProdutoDao();
+        produtos.removerProduto(id);
+        
+    }
+     public void alterar(int id,Produto cliente) throws SQLException
+    {
+        ProdutoDao produtos  = new ProdutoDao();
+        produtos.alterar(id, cliente);
+    }
+
+    public static List<Produto> listar() throws SQLException {
         List<Produto> produtos = ProdutoDao.listar();
         return produtos;
     }
-     
-      public static List<Produto> controleEstoque(int idProd , Produto produto)
-    {
-        List<Produto> produtos = ProdutoDao.controleEstoque(idProd,produto);
-        return produtos;
-        
-    }
-     
-      
-     
-     
 
-    
-   
     }
     
     
