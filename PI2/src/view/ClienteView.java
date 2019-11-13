@@ -441,6 +441,7 @@ public class ClienteView extends javax.swing.JFrame {
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         ClienteController clientes =  new ClienteController();
+        
         int id = Integer.parseInt((String) JTCliente.getValueAt(JTCliente.getSelectedRow(),0));
         
         ClienteController control = new ClienteController();
@@ -450,7 +451,7 @@ public class ClienteView extends javax.swing.JFrame {
             Logger.getLogger(ClienteView.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        limparTabela();
+        
         
         List<Cliente> listarClientes = new ArrayList<>();
         try {
@@ -459,7 +460,7 @@ public class ClienteView extends javax.swing.JFrame {
             Logger.getLogger(ClienteView.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        
+        limparTabela();
         inserirDadosTabela(listarClientes);
         
         

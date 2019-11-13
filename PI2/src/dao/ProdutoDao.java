@@ -23,7 +23,7 @@ public class ProdutoDao {
 
     }
 
-    public void cadastarCliente(Produto produtos) throws SQLException {
+    public void cadastrarProduto(Produto produtos) throws SQLException {
         String sql = "insert into produto (nomeProduto, fabricante, categoria, estoque, valor , tamanho ) Values(?,?,?,?,?,?)";
 
         PreparedStatement instrucaoSQL = conexao.prepareStatement(sql);
@@ -41,8 +41,9 @@ public class ProdutoDao {
 
     private static List<Produto> bd = new ArrayList<>();
 
-    public void removerCliente(int id) throws SQLException {
-         String sql = "delete from cliente where idProduto = ?";      
+    public void removerProduto(int id) throws SQLException {
+       String sql = "delete from produto where idProduto = ?";     
+       
        PreparedStatement instrucaoSQL = conexao.prepareStatement(sql);
        
        instrucaoSQL.setInt(1,id);
@@ -71,7 +72,7 @@ public class ProdutoDao {
     }
 
     public static List<Produto> listar() throws SQLException {
-         String sql = "select * from cliente";
+         String sql = "select * from produto";
          
          PreparedStatement instrucaoSQL = conexao.prepareStatement(sql);
          
@@ -81,8 +82,15 @@ public class ProdutoDao {
         
         while(rs.next()){
             Produto produto = new Produto();
-           
+            produto.setCodigo(rs.getInt("idProduto"));
+            produto.setProduto(rs.getString("nomeProduto"));
+            produto.setFabricante(rs.getString("fabricante"));
+            produto.setCategoria(rs.getString("categoria"));
+            produto.setEstoque(rs.getInt("estoque"));
+            produto.setValor(rs.getInt("valor"));
+            produto.setTamanho(rs.getString("tamanho"));
             
+            produtos.add(produto);
         }
         rs.close();
         

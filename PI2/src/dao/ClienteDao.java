@@ -37,7 +37,8 @@ public class ClienteDao {
     private static List<Cliente> bd = new ArrayList<>();
 
     public void removerCliente(int id) throws SQLException {
-         String sql = "delete from cliente where idCliente = ?";      
+       String sql = "delete from cliente where idCliente = ?";
+         
        PreparedStatement instrucaoSQL = conexao.prepareStatement(sql);
        
        instrucaoSQL.setInt(1,id);

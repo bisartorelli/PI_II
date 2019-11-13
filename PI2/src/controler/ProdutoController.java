@@ -18,14 +18,14 @@ import model.Produto;
 public class ProdutoController {
         
     
-    public void cadastarCliente(Produto produto) throws SQLException {
+    public void cadastarProduto(Produto produto) throws SQLException {
 
         ProdutoDao produtos = new ProdutoDao();
-        produtos.cadastarProduto(produto);
+        produtos.cadastrarProduto(produto);
         
     }
 
-    public void remover(int id) throws SQLException {
+    public void removerProduto(int id) throws SQLException {
         ProdutoDao produtos =  new ProdutoDao();
         produtos.removerProduto(id);
         
@@ -36,7 +36,7 @@ public class ProdutoController {
         produtos.alterar(id, cliente);
     }
 
-    public static List<Produto> listar() throws SQLException {
+    public List<Produto> listar() throws SQLException {
         List<Produto> produtos = ProdutoDao.listar();
         return produtos;
     }

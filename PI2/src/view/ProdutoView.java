@@ -7,8 +7,11 @@ package view;
 
 
 import controler.ProdutoController;
-import static dao.ProdutoDao.bd;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -55,7 +58,7 @@ public class ProdutoView extends javax.swing.JFrame {
         txtValor = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabela = new javax.swing.JTable();
+        tableProduto = new javax.swing.JTable();
         btnPesquisar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         txtProdutoPesquisa = new javax.swing.JTextField();
@@ -213,7 +216,7 @@ public class ProdutoView extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Pesquisa"));
 
-        tabela.setModel(new javax.swing.table.DefaultTableModel(
+        tableProduto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -221,7 +224,7 @@ public class ProdutoView extends javax.swing.JFrame {
                 "Codigo", "Produto", "Fabricante", "Categoria", "Tamanho", "Estoque", "Valor"
             }
         ));
-        jScrollPane1.setViewportView(tabela);
+        jScrollPane1.setViewportView(tableProduto);
 
         btnPesquisar.setText("Pesquisar");
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -316,13 +319,8 @@ public class ProdutoView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_TamanhoProdActionPerformed
     
-    int i = bd.size() + 1;
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
      
-        
-         
-        
-        
         String produto = txtProduto.getText();
         
         String fabricante = txtFabricante.getText();
@@ -355,20 +353,9 @@ public class ProdutoView extends javax.swing.JFrame {
             return;
         }
         
-        
-        
-        
-        int codigo = i;
-        i++;
-       
-        
      
-       
-        
-
         Produto model = new Produto();
         model.setProduto(produto);
-        model.setCodigo(codigo);
         model.setFabricante(fabricante);
         model.setCategoria(categoria);
         model.setTamanho(tamanho);
@@ -378,11 +365,26 @@ public class ProdutoView extends javax.swing.JFrame {
         
         
         
+        ProdutoController control = new ProdutoController();
+        try {
+            control.cadastarProduto(model);
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        List<Produto> prod = new ArrayList<>();
+       
+        try {
+           prod = control.listar();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoView.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         limparTabela();
-        List<Produto> produtos = ProdutoController.cadastarProduto(model);
-        inserirDadosTabela(produtos);
-        JOptionPane.showMessageDialog(this, "Produto salvo Com sucesso");
+        inserirDadosTabela(prod);
+        
+        JOptionPane.showMessageDialog(this, "Produto salvo  com sucesso");
         
         txtEstoque.setText("0");
         txtFabricante.setText("");
@@ -395,12 +397,29 @@ public class ProdutoView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+     ProdutoController control = new ProdutoController();
+     
+     int id = Integer.parseInt((String) tableProduto.getValueAt(tableProduto.getSelectedRow(),0));
+    
+     
+     try {
+          control.removerProduto(id);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
         
         
-        int id = tabela.getSelectedRow();
-     limparTabela();
-     List<Produto> produtos = ProdutoController.remover(id);
-     inserirDadosTabela(produtos);
+        List<Produto> listarProduto = new ArrayList<>();
+        try {
+          listarProduto = control.listar();
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        limparTabela();
+        inserirDadosTabela(listarProduto);
+     
      
 
         
@@ -410,7 +429,7 @@ public class ProdutoView extends javax.swing.JFrame {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
    
     
-      int idProd = tabela.getSelectedRow();
+      int idProd = tableProduto.getSelectedRow();
       String nome = txtProduto.getText();
       String fabricante = txtFabricante.getText();
       String categoria = (String) CategoriaProd.getSelectedItem();
@@ -448,18 +467,18 @@ public class ProdutoView extends javax.swing.JFrame {
       produto.setEstoque(estoque);
       produto.setValor(valor);
       
-       limparTabela();
-       List<Produto> produtos = ProdutoController.atualizar(idProd,produto);
-
-      inserirDadosTabela(produtos);
-   
-      
-        txtEstoque.setText("0");
-        txtFabricante.setText("");
-        txtProduto.setText("");
-        txtValor.setText("");
-        txtProdutoPesquisa.setText("");
-        
+//       limparTabela();
+//       List<Produto> produtos = ProdutoController.atualizar(idProd,produto);
+//
+//      inserirDadosTabela(produtos);
+//   
+//      
+//        txtEstoque.setText("0");
+//        txtFabricante.setText("");
+//        txtProduto.setText("");
+//        txtValor.setText("");
+//        txtProdutoPesquisa.setText("");
+//        
        
     }//GEN-LAST:event_btnEditarActionPerformed
 
@@ -473,11 +492,11 @@ public class ProdutoView extends javax.swing.JFrame {
     }//GEN-LAST:event_lblMenuMouseClicked
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        
-        List<Produto> produtos = ProdutoController.listar();
-        limparTabela();
-        pesquisarPorCodigo(produtos);
-        
+//        
+//        List<Produto> produtos = ProdutoController.listar();
+//        limparTabela();
+//        pesquisarPorCodigo(produtos);
+//        
         
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
@@ -503,14 +522,14 @@ public class ProdutoView extends javax.swing.JFrame {
     }//GEN-LAST:event_txtValorKeyTyped
 
     private void btnPreencherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreencherActionPerformed
-        if (tabela.getRowCount() > 0) {
+        if (tableProduto.getRowCount() > 0) {
 
-            if (tabela.getSelectedRow() >= 0) {
+            if (tableProduto.getSelectedRow() >= 0) {
 
-                txtProduto.setText(tabela.getModel().getValueAt(tabela.getSelectedRow(), 1).toString());
-                txtFabricante.setText(tabela.getModel().getValueAt(tabela.getSelectedRow(), 2).toString());
-                txtEstoque.setText(tabela.getModel().getValueAt(tabela.getSelectedRow(), 5).toString());
-                txtValor.setText(tabela.getModel().getValueAt(tabela.getSelectedRow(), 6).toString());
+                txtProduto.setText(tableProduto.getModel().getValueAt(tableProduto.getSelectedRow(), 1).toString());
+                txtFabricante.setText(tableProduto.getModel().getValueAt(tableProduto.getSelectedRow(), 2).toString());
+                txtEstoque.setText(tableProduto.getModel().getValueAt(tableProduto.getSelectedRow(), 5).toString());
+                txtValor.setText(tableProduto.getModel().getValueAt(tableProduto.getSelectedRow(), 6).toString());
 
             } else {
                 JOptionPane.showMessageDialog(this, "Selecione um produto para editar!");
@@ -522,7 +541,7 @@ public class ProdutoView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPreencherActionPerformed
        private void pesquisarPorCodigo(List<Produto> produtos){
         
-          DefaultTableModel model = (DefaultTableModel) tabela.getModel();
+          DefaultTableModel model = (DefaultTableModel) tableProduto.getModel();
         for (Produto produto : produtos) {
             if(produto.getCodigo()== Integer.parseInt(txtProdutoPesquisa.getText()))
             model.addRow(new String[]{String.valueOf(produto.getCodigo()),produto.getProduto(), produto.getFabricante(), produto.getCategoria(), produto.getTamanho(),String.valueOf(produto.getEstoque()), String.valueOf(produto.getValor())});
@@ -532,14 +551,14 @@ public class ProdutoView extends javax.swing.JFrame {
     
     private void inserirDadosTabela(List<Produto> produtos) {
 
-        DefaultTableModel model = (DefaultTableModel) tabela.getModel();
+        DefaultTableModel model = (DefaultTableModel) tableProduto.getModel();
         for (Produto produto : produtos) {
             model.addRow(new String[]{String.valueOf(produto.getCodigo()),produto.getProduto(), produto.getFabricante(), produto.getCategoria(), produto.getTamanho(),String.valueOf(produto.getEstoque()), String.valueOf(produto.getValor())});
         }
     }
 
     private void limparTabela() {
-        DefaultTableModel model = (DefaultTableModel) tabela.getModel();
+        DefaultTableModel model = (DefaultTableModel) tableProduto.getModel();
 
         for (int i = model.getRowCount() - 1; i >= 0; i--) {
             model.removeRow(i);
@@ -604,7 +623,7 @@ public class ProdutoView extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblMenu;
     private javax.swing.JPanel painel;
-    private javax.swing.JTable tabela;
+    private javax.swing.JTable tableProduto;
     private javax.swing.JTextField txtEstoque;
     private javax.swing.JTextField txtFabricante;
     private javax.swing.JTextField txtProduto;
