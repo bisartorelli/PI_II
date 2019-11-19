@@ -30,10 +30,10 @@ public class ProdutoController {
         produtos.removerProduto(id);
         
     }
-     public void alterar(int id,Produto cliente) throws SQLException
+     public void alterar(int id,Produto produto) throws SQLException
     {
         ProdutoDao produtos  = new ProdutoDao();
-        produtos.alterar(id, cliente);
+        produtos.alterar(id, produto);
     }
 
     public List<Produto> listar() throws SQLException {

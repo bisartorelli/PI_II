@@ -429,7 +429,7 @@ public class ProdutoView extends javax.swing.JFrame {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
    
     
-      int idProd = tableProduto.getSelectedRow();
+      int id = Integer.parseInt((String) tableProduto.getValueAt(tableProduto.getSelectedRow(),0));
       String nome = txtProduto.getText();
       String fabricante = txtFabricante.getText();
       String categoria = (String) CategoriaProd.getSelectedItem();
@@ -467,18 +467,34 @@ public class ProdutoView extends javax.swing.JFrame {
       produto.setEstoque(estoque);
       produto.setValor(valor);
       
-//       limparTabela();
-//       List<Produto> produtos = ProdutoController.atualizar(idProd,produto);
-//
-//      inserirDadosTabela(produtos);
-//   
-//      
-//        txtEstoque.setText("0");
-//        txtFabricante.setText("");
-//        txtProduto.setText("");
-//        txtValor.setText("");
-//        txtProdutoPesquisa.setText("");
-//        
+      limparTabela();
+      
+      
+      ProdutoController control = new ProdutoController();
+      
+      
+        try {
+            control.alterar(id, produto);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        
+       List<Produto> listarProduto = new ArrayList<>();
+        try {
+          listarProduto = control.listar();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        
+        limparTabela();
+        inserirDadosTabela(listarProduto);
+        
+      
+        
+      JOptionPane.showMessageDialog(this, "!");
+     
        
     }//GEN-LAST:event_btnEditarActionPerformed
 

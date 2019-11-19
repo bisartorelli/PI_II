@@ -70,6 +70,11 @@ public class ClienteView extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados Cliente"));
 
+        txtNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNomeActionPerformed(evt);
+            }
+        });
         txtNome.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtNomeKeyTyped(evt);
@@ -293,7 +298,7 @@ public class ClienteView extends javax.swing.JFrame {
     }//GEN-LAST:event_lblMenuMouseClicked
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-         int id = Integer.parseInt((String) JTCliente.getValueAt(JTCliente.getSelectedRow(),0));
+        int id = Integer.parseInt((String) JTCliente.getValueAt(JTCliente.getSelectedRow(),0));
 
         String nome = txtNome.getText();
         String telefone = txtTelefone.getText();
@@ -521,6 +526,10 @@ public class ClienteView extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_txtPesquisaCpfKeyTyped
+
+    private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNomeActionPerformed
 
     private void pesquisarPorCpf(List<Cliente> clientes) {
 
