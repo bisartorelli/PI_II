@@ -30,12 +30,11 @@ public class VendaView extends javax.swing.JFrame {
     public VendaView() throws SQLException {
         initComponents();
         ClienteController control = new ClienteController();
+         List<Cliente> clientes = control.listar();
 
-        List<Cliente> clientes = control.listar();
-
-        for (Cliente cliente : clientes) {
-            jComboBox1.addItem(cliente.getCpf());
-        }
+         for (Cliente cliente : clientes) {
+          jComboBox1.addItem(cliente.getCpf());
+       }
 
         ProdutoController controlproduto = new ProdutoController();
 

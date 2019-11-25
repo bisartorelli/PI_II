@@ -347,7 +347,7 @@ public class ClienteView extends javax.swing.JFrame {
             Logger.getLogger(ClienteView.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-      
+        
         inserirDadosTabela(listarClientes);
 
 
