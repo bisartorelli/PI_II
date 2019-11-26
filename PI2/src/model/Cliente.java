@@ -8,6 +8,26 @@ public class Cliente {
     private String sexo;
     private String telefone;
     private String cpf;
+    private String data;
+    private String estadoCivil;
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public String getEstadoCivil() {
+        return estadoCivil;
+    }
+
+    public void setEstadoCivil(String estadoCivil) {
+        this.estadoCivil = estadoCivil;
+    }
+    
+    
 
     public int getId() {
         return id;

@@ -21,7 +21,7 @@ public class ClienteDao {
     }
 
     public void cadastarCliente(Cliente cliente) throws SQLException {
-        String sql = "insert into cliente (nomeCliente,cpfCliente,telefone,sexo) Values(?,?,?,?)";
+        String sql = "insert into cliente (nomeCliente,cpfCliente,telefone,sexo,dataDeNascimento,estadoCivil) Values(?,?,?,?,?,?)";
 
         PreparedStatement instrucaoSQL = conexao.prepareStatement(sql);
 
@@ -29,7 +29,9 @@ public class ClienteDao {
         instrucaoSQL.setString(2, cliente.getCpf());
         instrucaoSQL.setString(3, cliente.getTelefone());
         instrucaoSQL.setString(4, cliente.getSexo());
-
+        instrucaoSQL.setString(5, cliente.getData());
+        instrucaoSQL.setString(6, cliente.getEstadoCivil());
+        
         int linhasAfetadas = instrucaoSQL.executeUpdate();
 
     }
@@ -49,7 +51,7 @@ public class ClienteDao {
     }
 
     public void alterar(int id, Cliente cliente) throws SQLException {
-       String sql = "update cliente set nomeCliente = ?, cpfCliente = ?, telefone  = ?, sexo = ? where idCliente = ?";
+       String sql = "update cliente set nomeCliente = ?, cpfCliente = ?, telefone  = ?, sexo = ?, dataDeNascimento = ?, estadoCivil = ? where idCliente = ?";
 
         PreparedStatement instrucaoSQL = conexao.prepareStatement(sql);
         
@@ -57,8 +59,9 @@ public class ClienteDao {
         instrucaoSQL.setString(2, cliente.getCpf());
         instrucaoSQL.setString(3, cliente.getTelefone());
         instrucaoSQL.setString(4, cliente.getSexo());
-        instrucaoSQL.setInt(5, id);
-        
+        instrucaoSQL.setString(5, cliente.getData());
+        instrucaoSQL.setString(6, cliente.getEstadoCivil());
+        instrucaoSQL.setInt(7, id);
 
         int linhasAfetadas = instrucaoSQL.executeUpdate();
     }
