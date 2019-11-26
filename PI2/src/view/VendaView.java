@@ -43,6 +43,10 @@ public class VendaView extends javax.swing.JFrame {
         for (Produto produto : produtos) {
             jComboBox2.addItem(String.valueOf(produto.getCodigo()));
         }
+        
+        
+        
+        
 
     }
 
@@ -289,64 +293,75 @@ public class VendaView extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnEditarActionPerformed
-    int soma;
+    int soma;   
     int estoque;
-
+     
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
 
-//        String cpf = jComboBox1.getSelectedItem().toString();
-//        int codigo = Integer.parseInt(jComboBox2.getSelectedItem().toString());
-//        int quantidade = Integer.parseInt(txtQuantidade.getText());
-//
-//        ProdutoController nha = new ProdutoController();
-//        List<Produto> produto = nha.listar();
-//        Produto valor = produto.get(codigo - 1);
-//        int valor2 = valor.getValor();
-//        int somador = 0;
-//        int estoque1 = estoque;
+         String cpf = jComboBox1.getSelectedItem().toString();
+         int codigo = Integer.parseInt(jComboBox2.getSelectedItem().toString());
+         int quantidade = Integer.parseInt(txtQuantidade.getText());
+ 
+         ProdutoController nha = new ProdutoController();
+        try {
+            List<Produto> produto = nha.listar();
+            Produto valor = produto.get(codigo - 1);
+            int valor2 = valor.getValor();
+            int somador = 0;
+            int estoque1 = estoque;
 
+
+
+        if(estoque > 0){
+        estoque1 = estoque - quantidade;
+        }else{
+            JOptionPane.showMessageDialog(this, "Este Produto Não existe No estoque");
+            return;
+        }
+        
+        if(estoque1 >= 0){
+        lblEstoque.setText("" + estoque1);
+        }
+     
+        if(estoque1 >= 0){
+             somador = valor2 * quantidade;
+             soma = soma + somador;
+        }
+        
+        if (estoque < 0){
+            
+            return;
+        }
+        estoque = estoque1;
+        lblTotal.setText("" + soma);
+        
+        nha.alterarEstoque(codigo,estoque1);
+        
+        Venda venda = new Venda();
+        venda.setCpf(cpf);
+        venda.setCodigo(codigo);
+        venda.setQuantidade(quantidade);
+        venda.setValor(valor2);
+        
         
 
-        
-//        
-//        if(estoque >= 0){
-//        estoque1 = estoque - quantidade;
-//       
-//        if(estoque1 >= 0)
-//        lblEstoque.setText("" + estoque1);
-//        }
-//        if(estoque1 >= 0){
-//             somador = valor2 * quantidade;
-//             soma = soma + somador;
-//        }
-//        estoque = estoque1;
-//        lblTotal.setText("" + soma);
-//        
-//        Venda venda = new Venda();
-//        venda.setCpf(cpf);
-//        venda.setCodigo(codigo);
-//        venda.setQuantidade(quantidade);
-//        venda.setValor(valor2);
-//        
-//        if (estoque < 0){
-//            JOptionPane.showMessageDialog(this, "Este Produto Não existe No estoque");
-//            return;
-//        }
-//        
-//
-//        Produto model = new Produto();
-//        model.setEstoque(estoque1);
 
-//        List<Produto> produtos = nha.controleEstoque(codigo -1, model);
-//        Produto tentativa = produtos.get(codigo - 1);
-//        estoque1 = tentativa.getEstoque();
-//        
-//        
-//        limparTabela();
-//        List<Venda> vendas = VendaController.cadastrarVenda(venda);
-//        inserirDadosTabela(vendas);
-//
-//        jComboBox1.setEnabled(false);
+        Produto model = new Produto();
+        model.setEstoque(estoque1);
+        
+        
+        
+
+   
+        
+        limparTabela();
+        List<Venda> vendas = VendaController.cadastrarVenda(venda);
+        inserirDadosTabela(vendas);
+
+        jComboBox1.setEnabled(false);
+        } catch (SQLException ex) {
+            Logger.getLogger(VendaView.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
 
     }//GEN-LAST:event_btnAddActionPerformed
@@ -397,14 +412,20 @@ public class VendaView extends javax.swing.JFrame {
     }//GEN-LAST:event_bntExcluirActionPerformed
 
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
-//        ProdutoController nha = new ProdutoController();
-//        List<Produto> produto = nha.listar();
-//        String codigo1 = jComboBox2.getSelectedItem().toString();
-//        int codigo = Integer.parseInt(codigo1);
-//        Produto linhaCorreta = produto.get(codigo - 1);
-//        int estoq = linhaCorreta.getEstoque();
-//        estoque = estoq;
-//        lblEstoque.setText("" + estoque);
+        ProdutoController controlproduto = new ProdutoController();
+        List<Produto> produtos = null;
+        try {
+            produtos = controlproduto.listar();
+        } catch (SQLException ex) {
+            Logger.getLogger(VendaView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+       String idproduto = jComboBox2.getSelectedItem().toString();
+       int idProdutoInt = Integer.parseInt(idproduto);
+       
+       lblEstoque.setText(String.valueOf(produtos.get(idProdutoInt - 1).getEstoque()));
+       
+       estoque = produtos.get(idProdutoInt - 1).getEstoque();
     }//GEN-LAST:event_jComboBox2ActionPerformed
 
     private void txtQuantidadeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantidadeKeyTyped

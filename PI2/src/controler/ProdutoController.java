@@ -41,6 +41,11 @@ public class ProdutoController {
         return produtos;
     }
 
+    public void alterarEstoque(int codigo, int estoque1) throws SQLException {
+        ProdutoDao produtos = new ProdutoDao();
+        produtos.alterarEstoque(codigo,estoque1);
+    }
+
     }
     
     

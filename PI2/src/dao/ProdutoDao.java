@@ -94,4 +94,16 @@ public class ProdutoDao {
         return bd;
     }
 
+    public void alterarEstoque(int codigo, int estoque1) throws SQLException {
+        String sql = "update produto set estoque = ? where idProduto = ?";
+        
+       PreparedStatement instrucaoSQL = conexao.prepareStatement(sql);
+
+        instrucaoSQL.setInt(1, estoque1);
+        instrucaoSQL.setInt(2,  codigo);
+        
+        
+        int linhasAfetadas = instrucaoSQL.executeUpdate();
+    }
+
 }
