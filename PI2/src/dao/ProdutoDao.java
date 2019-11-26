@@ -106,4 +106,32 @@ public class ProdutoDao {
         int linhasAfetadas = instrucaoSQL.executeUpdate();
     }
 
+    public List<Produto> listarPorId(int id) throws SQLException {
+        String sql = "select * from produto where idProduto = ?";
+        
+        PreparedStatement instrucaoSQL = conexao.prepareStatement(sql);
+        instrucaoSQL.setInt(1,id);
+        
+        ResultSet rs =  instrucaoSQL.executeQuery();
+        List<Produto> produtos = new ArrayList<>();
+        
+        while(rs.next()){
+            Produto produtu = new Produto();
+            produtu.setCodigo(rs.getInt("idProduto"));
+            produtu.setProduto(rs.getString("nomeProduto"));
+            produtu.setFabricante(rs.getString("fabricante"));
+            produtu.setCategoria(rs.getString("categoria"));
+            produtu.setEstoque(rs.getInt("estoque"));
+            produtu.setValor(rs.getInt("valor"));
+            produtu.setTamanho(rs.getString("tamanho"));
+            
+            
+            produtos.add(produtu);
+            
+        }
+        rs.close();
+        
+        return produtos;
+    }
+
 }

@@ -338,6 +338,9 @@ public class ClienteView extends javax.swing.JFrame {
         } else if (jRadioButton2.isSelected()) {
             sexo = jRadioButton2.getText();
         }
+        String estadoCivil = jcomboEstadoCivil.getSelectedItem().toString();
+       
+       String data = jFormattedTextField1.getText();
         
         if (nome.equals("")) {
             JOptionPane.showMessageDialog(this, "O nome Não foi preenchido !");
@@ -355,7 +358,8 @@ public class ClienteView extends javax.swing.JFrame {
         cliente.setCpf(cpf);
         cliente.setSexo(sexo);
         cliente.setTelefone(telefone);
-
+         cliente.setData(data);
+        cliente.setEstadoCivil(estadoCivil);
         
         
         ClienteController control = new ClienteController();

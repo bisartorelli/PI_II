@@ -16,6 +16,12 @@ import model.Produto;
  * @author bianca.osartorelli
  */
 public class ProdutoController {
+
+    public static List<Produto> listarPorId(int id) throws SQLException {
+       ProdutoDao produto = new ProdutoDao();
+       List<Produto> produtos = produto.listarPorId(id);
+       return produtos;
+    }
         
     
     public void cadastarProduto(Produto produto) throws SQLException {
@@ -45,6 +51,8 @@ public class ProdutoController {
         ProdutoDao produtos = new ProdutoDao();
         produtos.alterarEstoque(codigo,estoque1);
     }
+    
+    
 
     }
     

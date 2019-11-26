@@ -277,19 +277,24 @@ public class VendaView extends javax.swing.JFrame {
 
         ProdutoController nha = new ProdutoController();
 
-//        List<Produto> produto = nha.listar();
-//        Produto valor = produto.get(codigo - 1);
-//        int valor2 = valor.getValor();
+        List<Produto> produto = null;
+        try {
+            produto = nha.listar();
+        } catch (SQLException ex) {
+            Logger.getLogger(VendaView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Produto valor = produto.get(codigo - 1);
+        int valor2 = valor.getValor();
 
-//        Venda venda = new Venda();
-//        venda.setCpf(cpf);
-//        venda.setCodigo(codigo);
-//        venda.setQuantidade(quantidade);
-//        venda.setValor(valor2);
+        Venda venda = new Venda();
+        venda.setCpf(cpf);
+        venda.setCodigo(codigo);
+        venda.setQuantidade(quantidade);
+        venda.setValor(valor2);
 
-//        limparTabela();
-//        List<Venda> vendas = VendaController.alterarVenda(id, venda);
-//        inserirDadosTabela(vendas);
+         limparTabela();
+         List<Venda> vendas = VendaController.alterarVenda(id, venda);
+         inserirDadosTabela(vendas);
 
 
     }//GEN-LAST:event_btnEditarActionPerformed

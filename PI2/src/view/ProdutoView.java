@@ -508,11 +508,18 @@ public class ProdutoView extends javax.swing.JFrame {
     }//GEN-LAST:event_lblMenuMouseClicked
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-//        
-//        List<Produto> produtos = ProdutoController.listar();
-//        limparTabela();
-//        pesquisarPorCodigo(produtos);
-//        
+        
+        int id = Integer.parseInt(txtProdutoPesquisa.getText());
+        List<Produto> produtos = null;
+        try {
+            produtos = ProdutoController.listarPorId(id);
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        limparTabela();
+        inserirDadosTabela(produtos);
+        
         
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
