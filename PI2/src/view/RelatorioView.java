@@ -69,6 +69,7 @@ public class RelatorioView extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search-icon (1).png"))); // NOI18N
         btnPesquisar.setText("Pesquisar");
 
         lblValorTotalRel.setText("Valor Acumulado:");
@@ -119,7 +120,7 @@ public class RelatorioView extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel3.setText("MENU");
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/menu.png"))); // NOI18N
         jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel3MouseClicked(evt);
