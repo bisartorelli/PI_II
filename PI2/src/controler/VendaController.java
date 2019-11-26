@@ -6,6 +6,7 @@
 package controler;
 
 import dao.VendaDao;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.Venda;
@@ -33,8 +34,10 @@ public class VendaController {
          return clientes;
     }
 
-    public void vendaEfetuada() {
-        VendaDao.vendaEfetuada();
+    public void vendaEfetuada(Venda venda) throws SQLException {
+       
+        VendaDao vendas = new VendaDao();
+        vendas.vendaEfetuada(venda);
         
     }
 

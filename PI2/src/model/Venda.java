@@ -11,7 +11,7 @@ public class Venda {
     private String cpf;
     private int codigo;
     private int quantidade;
-    private int valor;
+    private double valor;
 
     public int getIdVenda() {
         return idVenda;
@@ -20,15 +20,13 @@ public class Venda {
     public void setIdVenda(int idVenda) {
         this.idVenda = idVenda;
     }
-   
+  
 
-   
-
-    public int getValor() {
+    public double getValor() {
         return valor;
     }
 
-    public void setValor(int valor) {
+    public void setValor(double valor) {
         this.valor = valor;
     }
     

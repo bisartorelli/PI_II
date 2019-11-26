@@ -293,7 +293,7 @@ public class VendaView extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnEditarActionPerformed
-    int soma;   
+    double soma;   
     int estoque;
      
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -306,8 +306,8 @@ public class VendaView extends javax.swing.JFrame {
         try {
             List<Produto> produto = nha.listar();
             Produto valor = produto.get(codigo - 1);
-            int valor2 = valor.getValor();
-            int somador = 0;
+            double valor2 = valor.getValor();
+            double somador = 0;
             int estoque1 = estoque;
 
 
@@ -342,21 +342,14 @@ public class VendaView extends javax.swing.JFrame {
         venda.setCodigo(codigo);
         venda.setQuantidade(quantidade);
         venda.setValor(valor2);
-        
-        
-
-
-        Produto model = new Produto();
-        model.setEstoque(estoque1);
-        
-        
-        
 
    
         
         limparTabela();
         List<Venda> vendas = VendaController.cadastrarVenda(venda);
         inserirDadosTabela(vendas);
+        
+       
 
         jComboBox1.setEnabled(false);
         } catch (SQLException ex) {
@@ -392,9 +385,20 @@ public class VendaView extends javax.swing.JFrame {
 
     private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed
 
-        Venda model = new Venda();
+        Venda vendas = new Venda();
+        String cpf = jComboBox1.getSelectedItem().toString();
+        
+        
+        vendas.setCpf(cpf);
+        vendas.setValor(soma);
+        
+        
         VendaController control = new VendaController();
-        control.vendaEfetuada();
+        try {
+            control.vendaEfetuada(vendas);
+        } catch (SQLException ex) {
+           ex.printStackTrace();
+        }
         
        
         
