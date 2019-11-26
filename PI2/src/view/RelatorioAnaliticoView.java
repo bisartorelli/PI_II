@@ -6,7 +6,10 @@
 package view;
 
 import controler.VendaController;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import model.Produto;
 import model.Venda;
@@ -20,12 +23,15 @@ public class RelatorioAnaliticoView extends javax.swing.JFrame {
     /**
      * Creates new form telaRelatorioAnalitico
      */
-    public RelatorioAnaliticoView() {
+    public RelatorioAnaliticoView() throws SQLException {
         initComponents();
         
+        VendaController control = new VendaController();
         
-     
         
+        List<Venda> vendas = control.listar();
+        limparTabela();
+        inserirDadosTabela(vendas);
         
     }
     
@@ -43,7 +49,6 @@ public class RelatorioAnaliticoView extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        btnVoltar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -55,36 +60,23 @@ public class RelatorioAnaliticoView extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Cód.", "Data", "Cliente", "Produto", "Quantidade", "Valor Unitário", "Valor Total"
+                "Codigo Da Venda", "Cliente", "Data", "Valor Total"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
-
-        btnVoltar.setText("Voltar");
-        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVoltarActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(596, Short.MAX_VALUE)
-                .addComponent(btnVoltar)
-                .addContainerGap())
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 667, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnVoltar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         jLabel1.setText("MENU");
@@ -113,7 +105,7 @@ public class RelatorioAnaliticoView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(5, 5, 5)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -126,19 +118,12 @@ public class RelatorioAnaliticoView extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jLabel1MouseClicked
 
-    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
-      
-        
-        
-        
-    }//GEN-LAST:event_btnVoltarActionPerformed
-
     
      private void inserirDadosTabela(List<Venda> vendas) {
 
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         for (Venda venda : vendas) {
-            model.addRow(new String[]{String.valueOf(1),String.valueOf(1),venda.getCpf(),String.valueOf(venda.getCodigo()),String.valueOf(venda.getQuantidade()),String.valueOf(venda.getValor()),String.valueOf(0)});
+            model.addRow(new String[]{String.valueOf(venda.getIdVenda()),String.valueOf(venda.getCpf()),venda.getData(),String.valueOf(venda.getValor())});
         }
     }
 
@@ -182,13 +167,16 @@ public class RelatorioAnaliticoView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RelatorioAnaliticoView().setVisible(true);
+                try {
+                    new RelatorioAnaliticoView().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(RelatorioAnaliticoView.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnVoltar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

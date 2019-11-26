@@ -24,12 +24,39 @@ import model.Venda;
 public class VendaDao {
     
      static Connection conexao;
-   
      
-     public VendaDao() throws SQLException {
+      public VendaDao() throws SQLException {
         conexao = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3307/tdsRoupa", "root", "");
 
     }
+
+    public static List<Venda> listar() throws SQLException {
+       
+        String sql = "select * from venda";
+         
+         PreparedStatement instrucaoSQL = conexao.prepareStatement(sql);
+         
+         
+        ResultSet rs =  instrucaoSQL.executeQuery();
+        List<Venda> vendas = new ArrayList<>();
+        
+        while(rs.next()){
+            Venda venda = new Venda();
+            venda.setIdVenda(rs.getInt("idVenda"));
+            venda.setCpf(rs.getString("cpfCliente"));
+            venda.setValor(rs.getDouble("valorTotal"));
+            venda.setData(rs.getString("dataVenda"));
+            
+            vendas.add(venda);
+            
+        }
+        rs.close();
+        
+        return vendas;
+       
+    }
+   
+
 
     public static List<Venda> cadastrarVenda(Venda venda) {
 
@@ -59,7 +86,7 @@ public class VendaDao {
     public static void vendaEfetuada(Venda venda) throws SQLException {
         
         
-        String sql = "insert into venda(cpfCliente,valorTotal) Values(?,?)";
+        String sql = "insert into venda(cpfCliente,valorTotal,dataVenda) Values(?,?,CURDATE())";
         PreparedStatement instrucaoSQL = conexao.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 
         instrucaoSQL.setString(1, venda.getCpf());

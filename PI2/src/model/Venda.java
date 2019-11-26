@@ -12,6 +12,17 @@ public class Venda {
     private int codigo;
     private int quantidade;
     private double valor;
+    private String data;
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+    
+    
 
     public int getIdVenda() {
         return idVenda;

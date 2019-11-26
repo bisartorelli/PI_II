@@ -40,6 +40,11 @@ public class VendaController {
         vendas.vendaEfetuada(venda);
         
     }
+    
+    public static List<Venda> listar() throws SQLException {
+        List<Venda> vendas = VendaDao.listar();
+        return vendas;
+    }
 
   
   
