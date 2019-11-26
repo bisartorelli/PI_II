@@ -9,6 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Produto;
 
+/**
+     * 
+    * @author Bianca Sartorelli
+    * @author Guilherme Augusto 
+    * @author Lucas Augusto
+    * @author Leonardo Lima
+    */
+
 public class ProdutoDao {
 
     static Connection conexao;
@@ -17,6 +25,12 @@ public class ProdutoDao {
         conexao = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3307/tdsRoupa", "root", "");
 
     }
+    
+    /**
+     * @throws java.sql.SQLException
+    *  @param  produtos objeto do Produto
+    *  
+    */
 
     public void cadastrarProduto(Produto produtos) throws SQLException {
         String sql = "insert into produto (nomeProduto, fabricante, categoria, estoque, valor , tamanho ) Values(?,?,?,?,?,?)";
@@ -36,6 +50,12 @@ public class ProdutoDao {
 
     private static List<Produto> bd = new ArrayList<>();
 
+     /**
+     * @throws java.sql.SQLException
+        *  @param  id objeto do Produto, utilizado para manipulação no banco
+    *  
+    */
+    
     public void removerProduto(int id) throws SQLException {
         String sql = "delete from produto where idProduto = ?";
 
@@ -46,6 +66,12 @@ public class ProdutoDao {
         int linhasAfetadas = instrucaoSQL.executeUpdate();
 
     }
+      /**
+     * @throws java.sql.SQLException
+     *  @param  id objeto do Produto, utilizado para manipulação no banco
+    * @param produtos do objeto Produto
+    *  
+    */
 
     public void alterar(int id, Produto produtos) throws SQLException {
         String sql = "update produto set nomeProduto = ?, fabricante = ?, categoria = ?, estoque = ? , valor = ?, tamanho = ? where idProduto = ?";
@@ -62,6 +88,12 @@ public class ProdutoDao {
 
         int linhasAfetadas = instrucaoSQL.executeUpdate();
     }
+    
+      /**
+     * 
+    *  @return produtos - tabela de produtos
+    *  
+    */
 
     public static List<Produto> listar() throws SQLException {
         String sql = "select * from produto";
@@ -89,10 +121,18 @@ public class ProdutoDao {
 
     }
 
-    public static List<Produto> controleEstoque(int idProd, Produto produto) {
-        bd.get(idProd).setEstoque(produto.getEstoque());
-        return bd;
-    }
+//    public static List<Produto> controleEstoque(int idProd, Produto produto) {
+//        bd.get(idProd).setEstoque(produto.getEstoque());
+//        return bd;
+//    }
+    
+    
+
+      /**
+     * @throws java.sql.SQLException
+    *  @param codigo objeto de Produto
+    *  @param estoque1 - novo valor de estoque, após update do banco
+    */
 
     public void alterarEstoque(int codigo, int estoque1) throws SQLException {
         String sql = "update produto set estoque = ? where idProduto = ?";

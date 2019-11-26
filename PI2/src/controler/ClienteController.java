@@ -10,11 +10,24 @@ import java.sql.SQLException;
 import java.util.List;
 import model.Cliente;
 
+/**
+     * 
+    * @author Bianca Sartorelli
+    * @author Guilherme Augusto 
+    * @author Lucas Augusto
+    * @author Leonardo Lima
+    */
 
 public class ClienteController {
     
   
-
+/**
+     * @throws java.sql.SQLException
+     * @see dao.ClienteDao
+    * @param cliente do objeto Cliente
+    * 
+    *  
+    */
     public void cadastarCliente(Cliente cliente) throws SQLException {
 
         ClienteDao clientes = new ClienteDao();
@@ -22,6 +35,12 @@ public class ClienteController {
         
     }
 
+    /**
+     
+    * @param id do objeto Cliente
+    * 
+    *  
+    */ 
     public void remover(int id) throws SQLException {
         ClienteDao clientes =  new ClienteDao();
         clientes.removerCliente(id);

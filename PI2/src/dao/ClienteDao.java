@@ -9,6 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Cliente;
 
+   /**
+     * 
+    * @author Bianca Sartorelli
+    * @author Guilherme Augusto 
+    * @author Lucas Augusto
+    * @author Leonardo Lima
+    */
+
 public class ClienteDao {
 
    static Connection conexao;
@@ -19,7 +27,13 @@ public class ClienteDao {
         conexao = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3307/tdsRoupa", "root", "");
 
     }
-
+    
+    
+    /**
+     * @throws java.sql.SQLException
+     *  @param  cliente objeto do Cliente
+    *  
+    */
     public void cadastarCliente(Cliente cliente) throws SQLException {
         String sql = "insert into cliente (nomeCliente,cpfCliente,telefone,sexo,dataDeNascimento,estadoCivil) Values(?,?,?,?,?,?)";
 
@@ -36,8 +50,13 @@ public class ClienteDao {
 
     }
 
-    private static List<Cliente> bd = new ArrayList<>();
-
+    
+    
+    /**
+     * @throws java.sql.SQLException
+     *  @param id - utilizado para remover cliente
+    *  
+    */
     public void removerCliente(int id) throws SQLException {
        String sql = "delete from cliente where idCliente = ?";
          
@@ -49,7 +68,13 @@ public class ClienteDao {
        int linhasAfetadas = instrucaoSQL.executeUpdate();
 
     }
-
+/**
+     * @throws java.sql.SQLException
+     *  @param id - utilizado para atualizar cliente
+    * @param cliente do objeto Cliente
+    * @return array - lista de clientes
+    *  
+    */
     public void alterar(int id, Cliente cliente) throws SQLException {
        String sql = "update cliente set nomeCliente = ?, cpfCliente = ?, telefone  = ?, sexo = ?, dataDeNascimento = ?, estadoCivil = ? where idCliente = ?";
 
@@ -92,6 +117,13 @@ public class ClienteDao {
          
     }
     
+    /**
+    * @throws java.sql.SQLException
+    *  @param cpf - do objeto Cliente
+    * @return array - lista de clientes
+    * 
+    *  
+    */
      public List<Cliente> listarCpf(String cpf) throws SQLException {
         String sql = "select * from cliente where cpfCliente = ?";
         

@@ -18,9 +18,12 @@ import javax.annotation.Generated;
 import model.Venda;
 
 /**
- *
- * @author lucas.afsilva6
- */
+     * 
+    * @author Bianca Sartorelli
+    * @author Guilherme Augusto 
+    * @author Lucas Augusto
+    * @author Leonardo Lima
+    */
 public class VendaDao {
     
      static Connection conexao;
@@ -29,7 +32,12 @@ public class VendaDao {
         conexao = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3307/tdsRoupa", "root", "");
 
     }
-
+/**
+     * @throws java.sql.SQLException
+     *
+    * @return array - lista de vendas
+    *  
+    */
     public static List<Venda> listar() throws SQLException {
        
         String sql = "select * from venda";
@@ -57,7 +65,14 @@ public class VendaDao {
     }
    
 
-
+   
+    
+    /**
+  
+     * @param venda do objeto Venda
+       *  
+    */
+    
     public static List<Venda> cadastrarVenda(Venda venda) {
 
         bd.add(venda);
@@ -73,6 +88,13 @@ public class VendaDao {
 
     }
 
+    /**
+   
+    * @param id do objeto Venda
+    * @param venda do objeto Venda
+    *  
+    */
+    
     public static List<Venda> alterarVenda(int id, Venda venda) {
         bd.get(id).setCpf(venda.getCpf());
         bd.get(id).setCodigo(venda.getCodigo());
@@ -112,7 +134,7 @@ public class VendaDao {
             instrucaoSQL.execute();
         }
         
-        
+        bd.clear();
 
     }
 

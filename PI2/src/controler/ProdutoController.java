@@ -12,9 +12,12 @@ import java.util.List;
 import model.Produto;
 
 /**
- *
- * @author bianca.osartorelli
- */
+     * 
+    * @author Bianca Sartorelli
+    * @author Guilherme Augusto 
+    * @author Lucas Augusto
+    * @author Leonardo Lima
+    */
 public class ProdutoController {
 
     public static List<Produto> listarPorId(int id) throws SQLException {
@@ -23,6 +26,14 @@ public class ProdutoController {
        return produtos;
     }
         
+    
+     /**
+     
+    * @param produto do objeto Produto
+    * @see dao.ProdutoDao
+    * @throws java.sql.SQLException
+    *  
+    */
     
     public void cadastarProduto(Produto produto) throws SQLException {
 
@@ -36,6 +47,13 @@ public class ProdutoController {
         produtos.removerProduto(id);
         
     }
+    
+     /**
+     
+    * @param id do objeto Produto
+    *  
+    */
+    
      public void alterar(int id,Produto produto) throws SQLException
     {
         ProdutoDao produtos  = new ProdutoDao();

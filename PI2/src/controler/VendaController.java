@@ -12,11 +12,22 @@ import java.util.List;
 import model.Venda;
 
 /**
- *
- * @author lucas.afsilva6
- */
+     * 
+    * @author Bianca Sartorelli
+    * @author Guilherme Augusto 
+    * @author Lucas Augusto
+    * @author Leonardo Lima
+    */
 public class VendaController {
 
+    /**
+     * @throws java.sql.SQLException
+     * @see dao.VendaDao
+    * @param venda do objeto Venda
+    * 
+    *  
+    */
+    
     public static List<Venda> cadastrarVenda(Venda venda) {
         
         List<Venda> clientes = VendaDao.cadastrarVenda(venda);
@@ -28,6 +39,12 @@ public class VendaController {
         return vendas;
     }
      
+      /**
+   
+    * @param id do objeto Venda
+    * @return array - vendas
+    *  
+    */
 
     public static List<Venda> alterarVenda(int id, Venda venda) {
          List<Venda> clientes = VendaDao.alterarVenda(id,venda);
@@ -40,6 +57,7 @@ public class VendaController {
         vendas.vendaEfetuada(venda);
         
     }
+    
     
     public static List<Venda> listar() throws SQLException {
         List<Venda> vendas = VendaDao.listar();

@@ -6,9 +6,12 @@
 package model;
 
 /**
- *
- * @author lucas.afsilva6
- */
+     * 
+    * @author Bianca Sartorelli
+    * @author Guilherme Augusto 
+    * @author Lucas Augusto
+    * @author Leonardo Lima
+    */
 public class RelatorioAnalitico {
     
 }

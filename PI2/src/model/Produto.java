@@ -6,9 +6,12 @@
 package model;
 
 /**
- *
- * @author bianca.osartorelli
- */
+     * 
+    * @author Bianca Sartorelli
+    * @author Guilherme Augusto 
+    * @author Lucas Augusto
+    * @author Leonardo Lima
+    */
 public class Produto {
     private int codigo;
     private String produto;  
